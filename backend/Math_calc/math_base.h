@@ -6,36 +6,33 @@
 namespace Math_calc {
 
 // MEANS: вещественная точка
-struct Point
-{
-    inline Point(double _x, double _y) : x{_x}, y{_y} {}
+struct Point {
+  inline Point(double _x, double _y) : x{_x}, y{_y} {}
 
-    inline Point() : x{0}, y{0} {}
+  inline Point() : x{0}, y{0} {}
 
-    // vars
+  // vars
 
-    double x, y;
+  double x, y;
 
-    // ~vars
+  // ~vars
 };
 
 // MEANS: вещественный отрезок
-struct Segment
-{
-    inline Segment(double _start, double _end) : start{_start}, end{_end}
-    {
-        // (код ошибки таков, так как по сути length = end - start < 0)
-        if (start > end)
-            throw std::invalid_argument("bad segment length");
-    }
+struct Segment {
+  inline Segment(double _start, double _end) : start{_start}, end{_end} {
+    // (код ошибки таков, так как по сути length = end - start < 0)
+    if (start > end)
+      throw std::invalid_argument("bad segment length");
+  }
 
-    inline Segment() : start{-0}, end{0} {}
+  inline Segment() : start{-0}, end{0} {}
 
-    // vars
+  // vars
 
-    double start, end;
+  double start, end;
 
-    // ~vars
+  // ~vars
 };
 
 }  // namespace Math_calc

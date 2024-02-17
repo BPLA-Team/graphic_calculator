@@ -13,60 +13,61 @@
 namespace Math_calc {
 
 // MEANS: класс, хранящий в себе вектор точек - пересечений графика мат. функции с осью Ox
-class function_roots
-{
-  public:
-    function_roots() = default;
+class function_roots {
+ public:
+  function_roots() = default;
 
-    // ARGS: мат. функция, левая нижняя точка - начало области поиска точек,
-    // ARGS: правая верхняя точка - конец области поиска точек, точность
-    // (поиск точек происходит на прямоугольной области, краями которой и являются точки)
-    function_roots(Math_func::function _func, Math_calc::Point left_bottom,
-                   Math_calc::Point right_top, double _precision);
+  // ARGS: мат. функция, левая нижняя точка - начало области поиска точек,
+  // ARGS: правая верхняя точка - конец области поиска точек, точность
+  // (поиск точек происходит на прямоугольной области, краями которой и являются точки)
+  function_roots(Math_func::function _func, Math_calc::Point left_bottom,
+                 Math_calc::Point right_top, double _precision);
 
-    // methods
+  // methods
 
-    // (перегрузка явного преобразования типов)
-    inline explicit operator std::vector<Math_calc::Point> () const { return points; }
+  // (перегрузка явного преобразования типов)
+  inline explicit operator std::vector<Math_calc::Point>() const {
+    return points;
+  }
 
-    // ~methods
+  // ~methods
 
-  protected:
-    // methods
+ protected:
+  // methods
 
-    // RETURNS: подсегменты, где могут находиться корни
-    // ARGS: сегмент, на котором ищем
-    // (используя тот факт, что по разные стороны от точки-корня мат. функция имеет разные знаки)
-    std::vector<Segment> estimated_segment(Segment) const;
+  // RETURNS: подсегменты, где могут находиться корни
+  // ARGS: сегмент, на котором ищем
+  // (используя тот факт, что по разные стороны от точки-корня мат. функция имеет разные знаки)
+  std::vector<Segment> estimated_segment(Segment) const;
 
-    // RETURNS: корень на интервале (значение x)
-    // ARGS: сегмент, на котором ищем
-    // (используя метод золотого сечения)
-    double root_on_interval(Segment) const;
+  // RETURNS: корень на интервале (значение x)
+  // ARGS: сегмент, на котором ищем
+  // (используя метод золотого сечения)
+  double root_on_interval(Segment) const;
 
-    // ~methods
+  // ~methods
 
-  private:
-    // vars
+ private:
+  // vars
 
-    // MEANS: точность (используем везде, поэтому сохраняем в качестве поля)
-    double precision;
+  // MEANS: точность (используем везде, поэтому сохраняем в качестве поля)
+  double precision;
 
-    // MEANS: введенная мат. функция
-    Math_func::function f;
+  // MEANS: введенная мат. функция
+  Math_func::function f;
 
-    std::vector<Point> points;
+  std::vector<Point> points;
 
-    // ~vars
+  // ~vars
 
-    // methods
+  // methods
 
-    // RETURNS: все корни (точки: пары вида (x,y))
-    // ARGS: левая нижняя точка - начало области поиска точек,
-    // ARGS: правая верхняя точка - конец области поиска точек
-    std::vector<Point> roots (Math_calc::Point left_bottom, Point right_top) const;
+  // RETURNS: все корни (точки: пары вида (x,y))
+  // ARGS: левая нижняя точка - начало области поиска точек,
+  // ARGS: правая верхняя точка - конец области поиска точек
+  std::vector<Point> roots(Math_calc::Point left_bottom, Point right_top) const;
 
-    // ~methods
+  // ~methods
 };
 
 }  // namespace Math_calc

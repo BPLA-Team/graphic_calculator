@@ -13,8 +13,9 @@ namespace Math_calc {
 // ARGS: лямбда-выражение от мат. функции, левая нижняя точка - начало области деления на сегменты,
 // ARGS: правая верхняя точка - конец области деления на сегменты, точность
 // (деление на сегменты происходит на прямоугольной области, краями которой и являются точки)
-std::vector<Segment> domain_segments (const std::function<double(double)>& calc,
-                                      Math_calc::Point left_bottom, Math_calc::Point right_top,
-                                      double precision);
+std::vector<Segment> domain_segments(const std::function<double(double)>& calc,
+                                     Math_calc::Point left_bottom,
+                                     Math_calc::Point right_top,
+                                     double precision);
 
 }  // namespace Math_calc

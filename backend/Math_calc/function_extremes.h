@@ -11,59 +11,57 @@
 namespace Math_calc {
 
 // MEANS: класс, хранящий в себе вектор точек - локальные экстремумы мат. функции
-class function_extremes : public function_roots
-{
-  public:
-    // ARGS: мат. функция, левая нижняя точка - начало области поиска точек,
-    // ARGS: правая верхняя точка - конец области поиска точек, точность
-    // (поиск точек происходит на прямоугольной области, краями которой и являются точки)
-    function_extremes(Math_func::function _func, Math_calc::Point left_bottom,
-                      Math_calc::Point right_top, double _precision);
+class function_extremes : public function_roots {
+ public:
+  // ARGS: мат. функция, левая нижняя точка - начало области поиска точек,
+  // ARGS: правая верхняя точка - конец области поиска точек, точность
+  // (поиск точек происходит на прямоугольной области, краями которой и являются точки)
+  function_extremes(Math_func::function _func, Math_calc::Point left_bottom,
+                    Math_calc::Point right_top, double _precision);
 
-    // methods
+  // methods
 
-    // (перегрузка явного преобразования типов)
-    inline explicit operator std::vector<Math_calc::Point> () const { return points; }
+  // (перегрузка явного преобразования типов)
+  inline explicit operator std::vector<Math_calc::Point>() const {
+    return points;
+  }
 
-    // ~methods
+  // ~methods
 
-  private:
-    enum ExtremeType
-    {
-        pnt_min,
-        pnt_max
-    };
+ private:
+  enum ExtremeType { pnt_min, pnt_max };
 
-    // vars
+  // vars
 
-    // MEANS: точность
-    // (используем везде, поэтому сохраняем в качестве поля)
-    double precision;
+  // MEANS: точность
+  // (используем везде, поэтому сохраняем в качестве поля)
+  double precision;
 
-    // MEANS: введенная мат. функция
-    Math_func::function f;
+  // MEANS: введенная мат. функция
+  Math_func::function f;
 
-    std::vector<Point> points;
+  std::vector<Point> points;
 
-    // ~vars
+  // ~vars
 
-    // methods
+  // methods
 
-    // RETURNS: подсегменты, где могут находиться экстремумы
-    // ARGS: тип экстремума, сегмент, на котором ищем
-    std::vector<Segment> estimated_segment(ExtremeType, Segment) const;
+  // RETURNS: подсегменты, где могут находиться экстремумы
+  // ARGS: тип экстремума, сегмент, на котором ищем
+  std::vector<Segment> estimated_segment(ExtremeType, Segment) const;
 
-    // RETURNS: экстремум на интервале (значение x)
-    // ARGS: тип экстремума, сегмент, на котором ищем
-    // (используя метод золотого сечения)
-    double extreme_on_interval(ExtremeType, Segment) const;
+  // RETURNS: экстремум на интервале (значение x)
+  // ARGS: тип экстремума, сегмент, на котором ищем
+  // (используя метод золотого сечения)
+  double extreme_on_interval(ExtremeType, Segment) const;
 
-    // RETURNS: все локальные экстремумы (точки: пары вида (x,y))
-    // ARGS: левая нижняя точка - начало области поиска точек,
-    // ARGS: правая верхняя точка - конец области поиска точек
-    std::vector<Point> extremes (Math_calc::Point left_bottom, Point right_top) const;
+  // RETURNS: все локальные экстремумы (точки: пары вида (x,y))
+  // ARGS: левая нижняя точка - начало области поиска точек,
+  // ARGS: правая верхняя точка - конец области поиска точек
+  std::vector<Point> extremes(Math_calc::Point left_bottom,
+                              Point right_top) const;
 
-    // ~methods
+  // ~methods
 };
 
 }  // namespace Math_calc

@@ -10,13 +10,12 @@
 namespace Graphix_calc {
 
 // MEANS: фигура, представляющая собой график мат. функции с областью определения [min_x:max_x)
-class Graphix : public Graph_lib::Shape
-{
-  public:
-    // ARGS: лямбда-выр. от мат. функции, мин. знач. x, макс. знач. x,
-    // ARGS: начало координат, кол-во точек, единичный отрезок
-    Graphix(std::function<double(double)> calc, double min_x, double max_x, Graph_lib::Point origin,
-            unsigned int point_amount, double unit_intr);
+class Graphix : public Graph_lib::Shape {
+ public:
+  // ARGS: лямбда-выр. от мат. функции, мин. знач. x, макс. знач. x,
+  // ARGS: начало координат, кол-во точек, единичный отрезок
+  Graphix(std::function<double(double)> calc, double min_x, double max_x,
+          Graph_lib::Point origin, unsigned int point_amount, double unit_intr);
 };
 
 }  // namespace Graphix_calc
