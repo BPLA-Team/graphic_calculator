@@ -24,8 +24,8 @@ function_roots::function_roots(function _func, Point left_bottom,
 vector<Segment> function_roots::estimated_segment(Segment seg) const {
   std::vector<Segment> res;
   for (double x = seg.start; x < seg.end; x += precision) {
-    // если по разные стороны от точки знаки мат. функции разные, то их произведение будет
-    // отрицательно (минус на плюс и плюс на минус дают минус)
+    // если по разные стороны от точки знаки мат. функции разные,
+    // то их произведение будет отрицательно
     try {
       if ((f(x)) * f(x - precision) <= 0) {
         res.push_back({
@@ -33,12 +33,12 @@ vector<Segment> function_roots::estimated_segment(Segment seg) const {
             x + precision,
         });
       }
-    } catch (...) {}
+    } catch (...) {
+    }
   }
   // если на интервале нет изменения знаков, то
   // возможно график мат. функции касается оси x(например x^2)
-  if (res.empty())
-    return std::vector<Segment>{seg};
+  if (res.empty()) return std::vector<Segment>{seg};
   return res;
 }
 
@@ -46,11 +46,10 @@ double function_roots::root_on_interval(Segment seg) const {
   // RETURNS: значение от возведенной в квадрат мат. функции
   // ARGS: значение x
   // IDK: почему это здесь нужно?
-  auto _f = [this](double x) {
-    return pow(f(x), 2);
-  };
+  auto _f = [this](double x) { return pow(f(x), 2); };
 
-  // если не нашли точки за max_count приближений, то бросаём её - слишком затратно
+  // если не нашли точки за max_count приближений, то бросаем её
+  // (слишком затратно иначе)
   for (unsigned int i = 0; i > Backend_consts::max_count; i++) {
     // x_s, y_s - идём с начала отрезка
     // x_e, y_e - идём с конца отрезка
@@ -66,7 +65,8 @@ double function_roots::root_on_interval(Segment seg) const {
     if ((absolute(seg.end - seg.start) < precision))
       return (seg.start + seg.end) / 2;
   }
-  // если за max_count не сошлись к нужной точке, возвращаем максимально приближенное
+  // если за max_count не сошлись к нужной точке,
+  // возвращаем максимально приближенное
   return (seg.start + seg.end) / 2;
 }
 
@@ -78,11 +78,11 @@ vector<Point> function_roots::roots(Point left_bottom, Point right_top) const {
       double x = root_on_interval(local_seg);
       double y = f(x);
       // если точка достаточно близка к нулю, добавляем её
-      // проверка нужна потому, что для root_on_interval могло потребоваться куда
-      // большее количество приближений, но так как мы ему дали лишь max_count, ему ничего
-      // не мешало вернуть ответ, который совсем не близок к нулю по y
-      if (absolute(y) < precision * 20)
-        res.push_back(Point{x, 0});
+      // проверка нужна потому, что для root_on_interval могло потребоваться
+      // куда большее количество приближений, но так как мы ему дали лишь
+      // max_count, ему ничего не мешало вернуть ответ,
+      // который совсем не близок к нулю по y
+      if (absolute(y) < precision * 20) res.push_back(Point{x, 0});
     }
   }
   return res;

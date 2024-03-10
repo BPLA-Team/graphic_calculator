@@ -15,7 +15,8 @@
 
 namespace Graphix_calc {
 
-// MEANS: фигура, представляющая собой график мат. функции, поделенный на сегменты, связанные с ОДЗ
+// MEANS: фигура, представляющая собой график мат. функции, поделенный на
+// сегменты, связанные с ОДЗ
 class Segmented_graphix : public Graph_lib::Shape {
  public:
   Segmented_graphix() = default;
@@ -23,7 +24,8 @@ class Segmented_graphix : public Graph_lib::Shape {
   // ARGS: лямбда-выражение от мат. функции, длина ед. отрезка, начало координат
   // ARGS: левая нижняя точка - начало области деления на сегменты,
   // ARGS: правая верхняя точка - конец области деления на сегменты
-  // (деление на сегменты происходит на прямоугольной области, краями которой и являются точки)
+  // (деление на сегменты происходит на прямоугольной области)
+  // (краями которой и являются точки)
   Segmented_graphix(std::function<double(double)> _calc, double unit_intr,
                     Graph_lib::Point origin, Graph_lib::Point left_bottom,
                     Graph_lib::Point right_top);

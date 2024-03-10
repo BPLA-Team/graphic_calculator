@@ -24,7 +24,7 @@ constexpr char c_exp = 'e';
 constexpr char c_ln = 'l';
 constexpr char uminus = 'u';
 
-// MEANS: строка с разрешенными элементар. мат. функциями
+// MEANS: строка с разрешенными элементарным мат. функциями
 const std::string math_func_chars = "sctelu";
 
 // MEANS: строка с разрешенными мат. операциями

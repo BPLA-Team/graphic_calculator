@@ -8,12 +8,12 @@
 namespace Graph_lib {
 
 void Shape::draw() const {
-  Fl_Color oldc =
-      fl_color();  // (не существует хорошего портативного способа получения текущего стиля)
+  Fl_Color prev_color = fl_color();  // не существует хорошего портативного
+                                     // способа получения текущего стиля
   fl_color(c.as_uint());
   fl_line_style(ls.style(), ls.w());
   draw_lines();
-  fl_color(oldc);  // reset color (к предыдущему) and style (к дефолтному)
+  fl_color(prev_color);  // reset color (к предыдущему) and style (к дефолтному)
   fl_line_style(0);
 }
 
@@ -76,8 +76,7 @@ void Open_polyline::draw_lines() const {
     fl_color(color().as_uint());  // reset color
   }
 
-  if (color().visibility())
-    Shape::draw_lines();
+  if (color().visibility()) Shape::draw_lines();
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -101,11 +100,11 @@ void Lines::draw_lines() const {
 //-------------------------------------------------------------------------------------------------------------------------------
 
 void Text::draw_lines() const {
-  int ofnt = fl_font();
-  int osz = fl_size();
+  int prev_font = fl_font();
+  int prev_size = fl_size();
   fl_font(fnt.as_uint(), fnt_sz);
   fl_draw(lab.c_str(), point(0).x, point(0).y);
-  fl_font(ofnt, osz);
+  fl_font(prev_font, prev_size);
 }
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -151,8 +150,7 @@ Suffix::Encoding get_encoding(const std::string& s)
   [[maybe_unused]] static int x = init_suffix_map();
 
   std::string::const_iterator p = std::find(s.begin(), s.end(), '.');
-  if (p == s.end())
-    return Suffix::none;  // no suffix
+  if (p == s.end()) return Suffix::none;  // no suffix
 
   std::string suf{p + 1, s.end()};
   return suffix_map[suf];
@@ -166,12 +164,10 @@ bool can_open(const std::string& s)
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
-Image::Image(Point _loc, const std::string& s, Suffix::Encoding e)
-    : width{0},
-      height{0},
-      text{_loc, ""}  // somewhat overelaborate constructor
+// somewhat overelaborate constructor
 // because errors related to image files can be such a pain to debug
-{
+Image::Image(Point _loc, const std::string& s, Suffix::Encoding e)
+    : width{0}, height{0}, text{_loc, ""} {
   add(_loc);
 
   if (!can_open(s)) {
@@ -180,8 +176,7 @@ Image::Image(Point _loc, const std::string& s, Suffix::Encoding e)
     return;
   }
 
-  if (e == Suffix::none)
-    e = get_encoding(s);
+  if (e == Suffix::none) e = get_encoding(s);
 
   switch (e) {
     case Suffix::png:
@@ -200,8 +195,7 @@ Image::Image(Point _loc, const std::string& s, Suffix::Encoding e)
 }
 
 void Image::draw_lines() const {
-  if (text.label() != "")
-    text.draw_lines();
+  if (text.label() != "") text.draw_lines();
 
   if (width && height)
     img_ptr->Fl_Image::draw(point(0).x, point(0).y, width, height, cx, cy);

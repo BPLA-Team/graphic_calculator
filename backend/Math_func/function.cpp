@@ -35,9 +35,7 @@ function& function::operator=(const function& func) {
   return *this;
 }
 
-bool function::has_var() const {
-  return c_in_s('x', func_str);
-}
+bool function::has_var() const { return c_in_s('x', func_str); }
 
 vector<string> function::lexemes() const {
   func_str_validation();
@@ -111,8 +109,7 @@ vector<string> function::lexemes() const {
       }
     }
   }
-  if (lex.size() > 0)
-    res.push_back(lex);
+  if (lex.size() > 0) res.push_back(lex);
   return (res);
 }
 
@@ -122,14 +119,14 @@ vector<string> function::reverse_polish() const {
   // MEANS: вектор, куда записывается итоговая обратная польская запись
   vector<string> res;
 
-  // MEANS: стэк с записанными операциями
+  // MEANS: стек с записанными операциями
   // (нужен для хранения операций в правильном порядке)
   stack<string> st_oper;
   st_oper.push("\0");
 
   for (const auto& lex : lexs) {
     // MEANS: символ, обозначающий текущую лексему
-    // (типо lex_char, нужен для switch-case)
+    // (нужен для switch-case)
     char l_c = s_to_c(lex);
 
     // MEANS: символ, обозначающий последний элемент в стеке с операциями
@@ -224,7 +221,7 @@ vector<string> function::reverse_polish() const {
 }
 
 double function::calc(double x) const {
-  // MEANS: стэк, куда складываем уже посчитанные числа
+  // MEANS: стек, куда складываем уже посчитанные числа
   // IDK: а это точно так?
   stack<double> calced_numbs;
 
@@ -232,19 +229,19 @@ double function::calc(double x) const {
 
   // раскрываем обратную польскую нотацию, подставляя x
   for (const auto& lex : rev_pol) {
-    // MEANS: последний символ в стэке
+    // MEANS: последний символ в стеке
     double l;
 
-    // MEANS: предпоследний символ в стэке (последний после удаления l)
+    // MEANS: предпоследний символ в стеке (последний после удаления l)
     double p;
 
     // MEANS: символ, обозначающий текущую лексему в обратной польской записи
-    // (типо lex_char, нужен для switch-case)
+    // (нужен для switch-case)
     char l_c = s_to_c(lex);
 
     if (c_in_s(l_c, math_func_chars)) {
       l = calced_numbs.top();  // запоминаем только последний
-          // (так как элем. мат. функции унарны)
+                               // (так как элем. мат. функции унарны)
       calced_numbs.pop();
       switch (l_c) {
         case c_sin:
@@ -270,7 +267,7 @@ double function::calc(double x) const {
       l = calced_numbs.top();
       calced_numbs.pop();
       p = calced_numbs.top();  // также запоминаем предпоследний
-          // (так как мат. операции бинарны)
+                               // (так как мат. операции бинарны)
       calced_numbs.pop();
       switch (l_c) {
         case plus:
@@ -308,7 +305,7 @@ double function::calc(double x) const {
       throw invalid_argument("violation of feasible region");
   }
 
-  // последнее, что осталось в стэке после всех действий - и есть ответ
+  // последнее, что осталось в стеке после всех действий - и есть ответ
   return calced_numbs.top();
 }
 

@@ -13,7 +13,7 @@
 
 namespace Graph_lib {
 
-// (cтандарт C++ не определяет никаких математических констант)
+// (стандарт C++ не определяет никаких математических констант)
 const double pi{std::acos(-1.0)};
 
 //-------------------------------------------------------------------------------------------------------------------------------
@@ -156,8 +156,7 @@ class Shape {
   inline Shape() = default;
 
   inline Shape(std::initializer_list<Point> _points) {
-    for (Point point : _points)
-      add(point);
+    for (Point point : _points) add(point);
   }
 
   inline Shape(const Shape&) = delete;  // (предотвращение копирования)
@@ -247,7 +246,7 @@ class Open_polyline : public Shape {
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
-// MEANS: закпытая последовательность линий
+// MEANS: закрытая последовательность линий
 struct Closed_polyline : Open_polyline {
  public:
   using Open_polyline::Open_polyline;

@@ -6,17 +6,18 @@
 
 namespace Math_func {
 
-// MEANS: класс, который при конструировании модифицирует строку, обозначающую мат. функцию
-// MEANS: класс, который хранит вектор всех номеров мат. функций, которые зависят от текущей
+// MEANS: класс, который при иниц. мод. строку, обозначающую мат. функцию
+// MEANS: класс, который хранит все номера мат. функ., завис. от текущей
 class expose_func_str {
  public:
-  // ARGS: все мат. функции в виде строк, раскрываемая мат. функция в виде строки
+  // ARGS: все мат. функции, раскрываемая мат. функция
+  // (в виде строк)
   expose_func_str(const std::vector<std::string>& _all_funcs_str,
                   std::string& _func_str);
 
   // methods
 
-  inline std::vector<size_t> get_dependences() { return dependences; }
+  inline std::vector<size_t> get_dependencies() { return dependencies; }
 
   // ~methods
 
@@ -38,7 +39,7 @@ class expose_func_str {
   std::string& func_str;
 
   // MEANS: общий вектор всех номеров мат. функций, которые зависят от текущей
-  std::vector<size_t> dependences;
+  std::vector<size_t> dependencies;
 
   // ~vars
 };

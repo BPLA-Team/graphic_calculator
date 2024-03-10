@@ -20,19 +20,21 @@
 // Backend
 #include "../../backend.h"
 
-// MEANS: окно, с полями для ввода мат. функций, возможностью построения их графиков на сист. коорд.
+// MEANS: окно, с полями для ввода мат. функций,
+// (возможностью построения их графиков на сист. коорд.)
 class Graphix_window : public Graph_lib::Window {
  public:
   Graphix_window();
 
-  // ARGS: точка - левый верхний угол, ширина, высота, заголовок, длина ед. отрезка
+  // ARGS: точка - левый верхний угол, ширина, высота, заголовок, длина ед.
+  // отрезка
   Graphix_window(Graph_lib::Point left_corner, pix_amount _width,
                  pix_amount _height, const std::string& title,
                  pix_amount _unit_intr);
 
   // methods
 
-  // DOES: запускает цикл ожидания нажатия кнопки и перересовывает всё в этом случае
+  // DOES: запускает цикл ожидания нажатия кнопки и перерисовывает всё
   void wait_for_button();
 
   bool window_is_open() const { return !quit_button_pushed; }
@@ -88,7 +90,7 @@ class Graphix_window : public Graph_lib::Window {
   // MEANS: создания нового поля для ввода мат. функции
   Graph_lib::Button new_func_button;
 
-  // MEANS: поля для ввода мат. функций и кнопки по управлению их графиков, производных
+  // MEANS: поля для ввода мат. функций и кнопки по управлению их графиков
   std::vector<Graphix_calc::Function_box*> enter_menu;
 
   // MEANS: кнопка выхода из программы
@@ -194,14 +196,14 @@ class Graphix_window : public Graph_lib::Window {
   // ARGS: индекс мат. функции
   void update_graphix(size_t func_index);
   // DOES: удаляет график мат. функции
-  // ARGS: индекс мат. функции, факт необоходимости отчистки памяти
+  // ARGS: индекс мат. функции, факт необходимости отчистки памяти
   void clear_graphix(size_t func_index, bool need_delete = true);
 
   // DOES: обновляет график производной мат. функции
   // ARGS: индекс мат. функции
   void update_deriv(size_t func_index);
   // DOES: удаляет график производной мат. функции
-  // ARGS: индекс мат. функции, факт необоходимости отчистки памяти
+  // ARGS: индекс мат. функции, факт необходимости отчистки памяти
   void clear_deriv(size_t func_index, bool need_delete = true);
 
   // DOES: обновляет особые точки графиков мат. функций

@@ -124,14 +124,13 @@ void Graphix_window::decr_unit_intr() {
 }
 
 void Graphix_window::change_unit_intr() {
-
   try {
     // домножаем пользовательский масштаб на длину маркированного отрезка
     double new_unit_intr = stod(scale_box.get_string()) * mark_intr;
     update_unit_intr(new_unit_intr);
   } catch (...)  // ошибка может вылететь от std::stod
   {
-    // TODO: добавить уведомление о том, что были превышены макс./мин. значения масштаба
+    // TODO: добавить уведомление, что были превышены макс./мин. масштаба
     scale_box.put_string("invalid input");
   }
 
@@ -163,7 +162,8 @@ void Graphix_window::draw_deriv(size_t func_index) {
   // обновляем флаг
   enter_menu[func_index]->deriv_show();
 
-  // устанавливаем в соотв. поле строку мат. функции, от которой рисуем график производной
+  // устанавливаем в соотв. поле строку мат. функции,
+  // от которой рисуем график производной
   if (enter_menu[func_index]->is_input_valid())
     enter_menu[func_index]->set_deriv_message(
         "(" + inputed_funcs[func_index].get_func_str() + ")'");
@@ -203,10 +203,9 @@ void Graphix_window::hide_points() {
 }
 
 void Graphix_window::new_func_box() {
-  // если до увеличения ветор боксов был пуст, то мы обратно
+  // если до увеличения вектор боксов был пуст, то мы обратно
   // двигаем кнопку создания нового поля для ввода мат. функции
-  if (enter_menu.empty())
-    new_func_button.move(border_dist, 0);
+  if (enter_menu.empty()) new_func_button.move(border_dist, 0);
 
   // создаем новый бокс (с индексом последний + 1 (= размер))
   Function_box* func_box =
@@ -229,8 +228,7 @@ void Graphix_window::new_func_box() {
 
   // если количество боксов стало максимально,
   // скрываем кнопку создания нового поля для ввода мат. функции
-  if (enter_menu.size() == max_functions_amount)
-    detach(new_func_button);
+  if (enter_menu.size() == max_functions_amount) detach(new_func_button);
 
   some_button_pushed = true;
 }
@@ -256,7 +254,7 @@ void Graphix_window::rem_func_box(size_t func_index) {
   inputed_strings.erase(inputed_strings.begin() + func_index);
   inputed_funcs.erase(inputed_funcs.begin() + func_index);
 
-  // отвязываем график, график производной (тамже чистим память)
+  // отвязываем график, график производной (там же чистим память)
   clear_graphix(func_index);
   clear_deriv(func_index);
 
@@ -265,14 +263,13 @@ void Graphix_window::rem_func_box(size_t func_index) {
   graphics.erase(graphics.begin() + func_index);
   derivs.erase(derivs.begin() + func_index);
 
-  // возвращаем кнопку оздания нового поля для ввода мат. функции,
+  // возвращаем кнопку создания нового поля для ввода мат. функции,
   // если количество боксов перестало быть максимальным
-  if (enter_menu.size() == max_functions_amount - 1)
-    attach(new_func_button);
+  if (enter_menu.size() == max_functions_amount - 1) attach(new_func_button);
 
-  // если не осталось боксов, двигаем кнопку оздания нового поля для ввода мат. функции
-  if (enter_menu.empty())
-    new_func_button.move(-border_dist, 0);
+  // если не осталось боксов, двигаем кнопку
+  // создания нового поля для ввода мат. функции
+  if (enter_menu.empty()) new_func_button.move(-border_dist, 0);
 
   some_button_pushed = true;
 }

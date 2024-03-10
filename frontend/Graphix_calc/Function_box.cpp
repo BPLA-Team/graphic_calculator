@@ -65,7 +65,7 @@ Function_box::~Function_box() {
 }
 
 void Function_box::attach(Graph_lib::Window& win) {
-  // try to decomment this :)
+  // try to uncomment this :)
   // win.attach(*this);
   win.attach(*in_box);
   win.attach(*draw_graphix_button);
@@ -79,7 +79,7 @@ void Function_box::attach(Graph_lib::Window& win) {
 }
 
 void Function_box::detach(Graph_lib::Window& win) {
-  // try to decomment this :)
+  // try to uncomment this :)
   // win.detach(*this);
   win.detach(*in_box);
   win.detach(*draw_graphix_button);

@@ -47,15 +47,13 @@ Axis::Axis(Orientation orient, Graph_lib::Point origin, pix_amount length,
 }
 
 Axis::~Axis() {
-  for (const auto& mark : marks)
-    delete mark;
+  for (const auto& mark : marks) delete mark;
 }
 
 void Axis::draw_lines() const {
   Shape::draw_lines();
   label.draw();
-  for (const auto& mark : marks)
-    mark->draw();
+  for (const auto& mark : marks) mark->draw();
   notches.draw();
 }
 
@@ -68,7 +66,7 @@ void Axis::set_color(Color c) {
 void Axis::init(Orientation orient, Graph_lib::Point origin,
                 pix_amount length) {
   switch (orient) {
-    case Axis::horisontal: {
+    case Axis::horizontal: {
       // установка точек для линии оси
       Shape::add(Point{origin.x - length / 2, origin.y});
       Shape::add(Point{origin.x + length / 2, origin.y});
@@ -76,8 +74,8 @@ void Axis::init(Orientation orient, Graph_lib::Point origin,
       // цикл по установке насечек и надписям к ним
       // (начинаем с единицы, так как начало координат очевидно)
       for (pix_amount i = 1; i < length / 2; i++) {
-        // IDK: по идее, хорошо бы еще единичный отрезок рисовать, но тогда там длины разные
-        // (из-за округления)
+        // IDK: по идее, хорошо бы еще единичный отрезок рисовать, но тогда там
+        // длины разные (из-за округления)
 
         // в этом случае насечка находится на нужном расстоянии от origin
         if (i % mark_intr == 0) {
@@ -123,8 +121,8 @@ void Axis::init(Orientation orient, Graph_lib::Point origin,
       // цикл по установке насечек и надписям к ним
       // (начинаем с единицы, так как начало координат очевидно)
       for (pix_amount i = 1; i < length / 2; i++) {
-        // IDK: по идее, хорошо бы еще единичный отрезок рисовать, но тогда там длины разные
-        // (из-за округления)
+        // IDK: по идее, хорошо бы еще единичный отрезок рисовать, но тогда там
+        // длины разные (из-за округления)
 
         // в этом случае насечка находится на нужном расстоянии от origin
         if (i % mark_intr == 0) {

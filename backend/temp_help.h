@@ -24,8 +24,7 @@ void print(const std::vector<T>& v) {
   cout << "{ ";
   for (size_t i = 0; i < v.size(); i++) {
     cout << "''" << v[i] << "''";
-    if (i != v.size() - 1)
-      cout << endl;
+    if (i != v.size() - 1) cout << endl;
   }
   cout << " }" << endl;
 }

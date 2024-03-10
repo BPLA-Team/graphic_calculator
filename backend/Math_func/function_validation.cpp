@@ -20,8 +20,7 @@ namespace Math_func {
 
 void function::func_str_validation() const {
   // проверка на пустую строку
-  if (func_str == "")
-    throw invalid_argument("empty expression");
+  if (func_str == "") throw invalid_argument("empty expression");
 
   // MEANS: строка со всеми разрешенными символами
   const string calc_chars = ".1234567890+-*/^()cosinexptal";
@@ -54,12 +53,10 @@ void function::func_str_validation() const {
     char n_c = ' ';
 
     // (вычисление значений этих символов)
-    if (i > 0)
-      p_c = func_str[i - 1];
-    if (i < (func_str.size() - 1))
-      n_c = func_str[i + 1];
+    if (i > 0) p_c = func_str[i - 1];
+    if (i < (func_str.size() - 1)) n_c = func_str[i + 1];
 
-    // проверка на отсутсвие лишних символов
+    // проверка на отсутствие лишних символов
     if (!c_in_s(c, calc_chars)) {
       if (isalpha(c))
         throw invalid_argument("extra variable '" + string{c} + "'");
@@ -95,13 +92,12 @@ void function::func_str_validation() const {
     else if (c == open_br) {
       count_brackets += 1;
       // и проверяем, что нету пустых
-      if (n_c == closed_br)
-        throw invalid_argument("empty brackets");
+      if (n_c == closed_br) throw invalid_argument("empty brackets");
     } else if (c == closed_br) {
       count_brackets -= 1;
-      // случай, когда после очередной закрытой скобки - закрытых скобок оказывается больше
-      if (count_brackets < 0)
-        throw invalid_argument("extra bracket");
+      // случай, когда после очередной закрытой скобки
+      // - закрытых скобок оказывается больше
+      if (count_brackets < 0) throw invalid_argument("extra bracket");
     }
 
     // возле числа должен стоять либо знак, либо точка, либо скобка
@@ -129,7 +125,7 @@ void function::func_str_validation() const {
         is_left_valid = c_in_s(p_c, valid_chars_near_digit + open_br);
       }
 
-      // если хотя бы с одной стороны мы имеем не валидный символ, нам это не подходит
+      // если хотя бы с одной стороны мы имеем не валидный символ
       if (!is_left_valid || !is_right_valid)
         throw invalid_argument("invalid syntax near digit");
     }
@@ -137,7 +133,7 @@ void function::func_str_validation() const {
 }
 
 void function::func_lexs_validation() const {
-  // MEANS: вектор, со всеми разрешенными лексемами, обозначающими элем. мат. функции
+  // MEANS: вектор, со всеми разреш. лекс., обозначающими элем. мат. функции
   const vector<string> functions{"sin", "cos", "tan", "exp", "ln", "um"};
 
   for (size_t i = 0; i < lexs.size(); i++) {
@@ -145,12 +141,11 @@ void function::func_lexs_validation() const {
     // MEANS: символ, обозначающий текущую лексему
     char l_c = s_to_c(lexs[i]);
 
-    // MEANS: символ, обозначающий следущию лексему
+    // MEANS: символ, обозначающий следующую лексему
     char n_c = ' ';
 
     // (вычисление этого символа)
-    if (i < (lexs.size() - 1))
-      n_c = s_to_c(lexs[i + 1]);
+    if (i < (lexs.size() - 1)) n_c = s_to_c(lexs[i + 1]);
 
     // FIXME: дальше какая-то дичь творится..
 
@@ -176,7 +171,7 @@ void function::func_lexs_validation() const {
         else if (l_c != uminus && n_c != open_br)
           throw invalid_argument("wrong function usage");
       } else if (l_c != var_x)  // если имя начинается не с разрешенной буквы и
-          // не является x, то оно постороннее
+                                // не является x, то оно постороннее
         throw invalid_argument("extra variable '" + string{l_c} + "'");
 
       else if (l_c == var_x) {

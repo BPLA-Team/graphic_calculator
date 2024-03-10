@@ -25,31 +25,25 @@ void Window::init() {
 
 void Window::draw() {
   Fl_Window::draw();
-  for (unsigned int i = 0; i < shapes.size(); ++i)
-    shapes[i]->draw();
+  for (unsigned int i = 0; i < shapes.size(); ++i) shapes[i]->draw();
 }
 
 void Window::attach(Widget& widget) {
-  Fl_Group::
-      begin();  // FTLK: начинаем прикреплять к этому окну новые Fl_Widgets.
+  Fl_Group::begin();  // FTLK: начинаем прикреплять к этому окну новые
+                      // Fl_Widgets
   widget.attach(*this);  // позволяем виджету создать свои Fl_Widgets
-  Fl_Group::
-      end();  // FTLK: прекращаем прикреплять новые Fl_Widgets к этому окну
+  Fl_Group::end();  // FTLK: прекращаем прикреплять новые
+                    // Fl_Widgets к этому окну
 }
 
-void Window::detach(Widget& widget) {
-  widget.hide();
-}
+void Window::detach(Widget& widget) { widget.hide(); }
 
-void Window::attach(Shape& shape) {
-  shapes.push_back(&shape);
-}
+void Window::attach(Shape& shape) { shapes.push_back(&shape); }
 
 void Window::detach(Shape& shape) {
   // последнее прикрепленное будет выпущено первым
   for (unsigned int i = shapes.size(); 0 < i; --i)
-    if (shapes[i - 1] == &shape)
-      shapes.erase(shapes.begin() + (i - 1));
+    if (shapes[i - 1] == &shape) shapes.erase(shapes.begin() + (i - 1));
 }
 
 void Window::put_on_top(Shape& shape) {

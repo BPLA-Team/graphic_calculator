@@ -34,32 +34,29 @@ Segmented_graphix::Segmented_graphix(Graphix_calc::Graphix* graphix)
     : seged_graphix{std::vector<Graphix_calc::Graphix*>{graphix}} {}
 
 Segmented_graphix::~Segmented_graphix() {
-  for (const auto& graphix_part : seged_graphix)
-    delete graphix_part;
+  for (const auto& graphix_part : seged_graphix) delete graphix_part;
 }
 
 void Segmented_graphix::draw_lines() const {
   Shape::draw_lines();
-  for (const auto& garphix_part : seged_graphix)
-    garphix_part->draw();
+  for (const auto& graphix_part : seged_graphix) graphix_part->draw();
 }
 
 void Segmented_graphix::set_color(Graph_lib::Color c) {
   Shape::set_color(c);
-  for (const auto& garphix_part : seged_graphix)
-    garphix_part->set_color(c);
+  for (const auto& graphix_part : seged_graphix) graphix_part->set_color(c);
 }
 
 vector<Segment> Segmented_graphix::segments(double unit_intr,
                                             Graph_lib::Point origin,
                                             Graph_lib::Point left_bottom,
                                             Graph_lib::Point right_top) const {
-  // эксперементально вычесленная удачная точность для деления на сегменты
+  // экспериментально вычисленная удачная точность для деления на сегменты
   // (говно неработающее)
-  // double prec_seg = ((double(r_border) / sqrt(unit_intr))) / (abs(max_unit_intr -
-  // unit_intr));
+  // double prec_seg = ((double(r_border) / sqrt(unit_intr))) /
+  // (abs(max_unit_intr - unit_intr));
 
-  // FIXME: естественно, она не должна быть константой (надобно исправить код выше)
+  // FIXME: естественно, она не должна быть константой (надо исправить код выше)
   double prec_seg = 0.0001;
 
   // использование функции из бэкенда, которая дробит на веществ. числа
@@ -74,7 +71,7 @@ vector<Graphix*> Segmented_graphix::segmented_graphix(
     Graph_lib::Point right_top) const {
   vector<Graphix*> res;
   // это количество точек идеально подходит под наши задачи
-  // (по-хорошему тут должна быть геометрическая прогрессия, но ресурсов она требует много)
+  // (по-хорошему тут геометрическая прогрессия, но ресурсов она требует)
   unsigned int point_amount = (4 / 3) * right_top.x * sqrt(unit_intr);
   for (const auto& seg : segs) {
     Graphix* f =

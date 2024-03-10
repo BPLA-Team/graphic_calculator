@@ -32,7 +32,7 @@ void Graphix_window::update_unit_intr(double new_unit_intr) {
 
     // создаём новые оси и задаём цвет
 
-    x_axis = new Axis{Axis::Orientation::horisontal,
+    x_axis = new Axis{Axis::Orientation::horizontal,
                       origin,
                       w() - func_box_w,
                       unit_intr,
@@ -48,19 +48,16 @@ void Graphix_window::update_unit_intr(double new_unit_intr) {
     attach(*x_axis);
     attach(*y_axis);
 
-    // перересовываем все графики
+    // перерисовываем все графики
     for (size_t i = 0; i < enter_menu.size(); ++i)
-      if (!enter_menu[i]->is_graphix_hidden())
-        update_graphix(i);
+      if (!enter_menu[i]->is_graphix_hidden()) update_graphix(i);
 
-    // перересовываем все производные
+    // перерисовываем все производные
     for (size_t i = 0; i < enter_menu.size(); ++i)
-      if (!enter_menu[i]->is_deriv_hidden())
-        update_deriv(i);
+      if (!enter_menu[i]->is_deriv_hidden()) update_deriv(i);
 
     // перерисовываем все точки, если они видны
-    if (is_points_visible)
-      update_points();
+    if (is_points_visible) update_points();
   }
 }
 
@@ -78,44 +75,43 @@ void Graphix_window::update_inputed_func(size_t func_index,
   string estimated_func_str = inputed_strings[func_index];
 
   // MEANS: вектор всех номеров мат. функций, которые зависят от возможной
-  vector<size_t> dependences;
+  vector<size_t> dependencies;
 
   try {
     // раскрываем все зависимости вида y_n
-    // (это модифицируеющий входный данный в конструкторе класс)
-    // (поэтому было важно копировать, так как в векторе введенных пользователем строк)
-    // (хочется оставлять изначальные значения)
-    Math_func::expose_func_str edfc{inputed_strings, estimated_func_str};
+    // (это модифицирующий входные данный в конструкторе класс)
+    // (поэтому было важно копировать)
+    // (так как в векторе введенных пользователем строк хочется)
+    // (оставлять изначальные значения)
+    Math_func::expose_func_str exposed{inputed_strings, estimated_func_str};
 
     // записываем зависимости
     // (к сожалению, лучше чем геттер - мы ничего не придумали)
-    dependences = edfc.get_dependences();
+    dependencies = exposed.get_dependencies();
 
     // обновляем все зависимые от возможной мат. функции
-    for (const auto& n : dependences)
-      update_inputed_func(n - 1, false);
+    for (const auto& n : dependencies) update_inputed_func(n - 1, false);
 
     // создаём мат. функцию по строке
     Math_func::function func{estimated_func_str};
 
-    // если ранее не было выброшено исключений, то возможная мат. функция валидна
-    // записываем её в соотв. вектор
+    // если ранее не было выброшено исключений, то возможная мат. функция
+    // валидна записываем её в соотв. вектор
     inputed_funcs[func_index] = func;
 
-    // меняем состояние флага и устанавливаем пустую строку в поле вывода (ошибок)
+    // меняем состояние флага и устанавливаем пустую строку в поле вывода
     enter_menu[func_index]->input_valid();
     enter_menu[func_index]->set_message(empty_str);
   }
 
   catch (const std::exception& e) {
-    // (эта проверка нужна из-за рекурсии)
     // (пользователь мог указать номер еще не созданной мат. функции)
     if (func_index < enter_menu.size()) {
       // скрываем всё нарисованное в этом боксе до этого
       clear_graphix(func_index, false);
       clear_deriv(func_index, false);
 
-      // меняем состояние флага и устанавливаем соотв. сообщение в поле вывода (ошибок)
+      // меняем состояние флага и устанавливаем соотв. сообщение в поле вывода
       enter_menu[func_index]->input_invalid();
       enter_menu[func_index]->set_message(string{e.what()});
 
@@ -127,15 +123,15 @@ void Graphix_window::update_inputed_func(size_t func_index,
 
 void Graphix_window::fill_inputed_funcs() {
   // (так как соотв. функция принимает индекс, проходимся таким образом)
-  for (size_t i = 0; i < enter_menu.size(); i++)
-    update_inputed_func(i);
+  for (size_t i = 0; i < enter_menu.size(); i++) update_inputed_func(i);
 }
 
 void Graphix_window::update_graphix(size_t func_index) {
-  // записываем в вектор введенных мат. функций, что ввёл пользователь (заодно проверяем)
+  // записываем в вектор введенных мат. функций, что ввёл пользователь
+  // (заодно проверяем)
   update_inputed_func(func_index);
 
-  // если проверка прошла успешна, рисуем график по введённой валидной мат. функции
+  // если проверка успешна, рисуем график по введённой валидной мат. функции
   if (enter_menu[func_index]->is_input_valid()) {
     // MEANS: введенная мат. функция
     const Math_func::function& func = inputed_funcs[func_index];
@@ -143,7 +139,7 @@ void Graphix_window::update_graphix(size_t func_index) {
     // MEANS: график мат. функции, поделенный на отрезки
     Segmented_graphix* seged_graphix;
 
-    // если есть переменная, используем коструктор сегментированного график
+    // если есть переменная, используем конструктор сегментированного график
     if (func.has_var())
       seged_graphix = new Segmented_graphix(func.calculate, unit_intr, origin,
                                             {border_dist, h()}, {w(), 0});
@@ -175,15 +171,16 @@ void Graphix_window::clear_graphix(size_t func_index, bool need_delete) {
   detach(*seged_graphix);
 
   // и чистим память (если необходимо)
-  if (need_delete)
-    delete seged_graphix;
+  if (need_delete) delete seged_graphix;
 }
 
 void Graphix_window::update_deriv(size_t func_index) {
-  // записываем в вектор введенных мат. функций, что ввёл пользователь (заодно проверяем)
+  // записываем в вектор введенных мат. функций, что ввёл пользователь
+  //  (заодно проверяем)
   update_inputed_func(func_index);
 
-  // если проверка прошла успешна, рисуем график производной по введённой валидной мат. функции
+  // если проверка прошла успешна, рисуем график производной по
+  // введённой валидной мат. функции
   if (enter_menu[func_index]->is_input_valid()) {
     // MEANS: введенная мат. функция
     const Math_func::function& func = inputed_funcs[func_index];
@@ -212,18 +209,18 @@ void Graphix_window::clear_deriv(size_t func_index, bool need_delete) {
   detach(*seged_deriv);
 
   // и чистим память (если необходимо)
-  if (need_delete)
-    delete seged_deriv;
+  if (need_delete) delete seged_deriv;
 }
 
 void Graphix_window::update_points() {
   // чистим память и окно от всех предыдущих точек
   clear_points();
 
-  // так как у нас есть пересечения, нам необходимо заполнить каждую мат. функцию
+  // так как у нас есть пересечения, нам надо заполнить каждую мат. функцию
   fill_inputed_funcs();
 
-  // переводим границы экрана в вещественные, чтобы использовать для бэкендовских функций
+  // переводим границы экрана в вещественные, чтобы использовать для
+  // бэкендовских функций
   Math_calc::Point left_bottom =
       converted_to_real({func_box_w, h()}, origin, unit_intr);
   Math_calc::Point right_top = converted_to_real({w(), 0}, origin, unit_intr);
@@ -231,8 +228,8 @@ void Graphix_window::update_points() {
   // FIXME: естественно, она не должна быть константой
   double point_prec = 0.0001;
 
-  // проходимся по вектору, куда пользователь вводит мат. функции и рисуем их экстремумы, корни
-  // (проходиться нужно именно таким образом, так как далее у нас вложенный перебор)
+  // проходимся по вектору, куда мат. функций и рисуем их экстремумы, корни
+  // (проходиться нужно именно таким образом, ибо у нас вложенный перебор)
   for (size_t i = 0; i < enter_menu.size(); i++) {
     // MEANS: введенная мат. функция
     const Math_func::function& func = inputed_funcs[i];
@@ -244,16 +241,17 @@ void Graphix_window::update_points() {
     // MEANS: особые точки в виде символов
     Marks* marks = new Marks{empty_str};
 
-    // отображаем корни и экстремумы только в том случае, если мат. функция валидна
+    // отображаем корни и экстремумы, если мат. функция валидна
     if (enter_menu[i]->is_input_valid()) {
-      // (вот именно для этой красивой передачи было перегружено явное преобразование)
-      // записываем все корни в вектор особых точек
+      // (вот именно для этой красивой передачи было перегружено явное
+      // преобразование) записываем все корни в вектор особых точек
       points = vector<Math_calc::Point>(
           Math_calc::function_roots{func, left_bottom, right_top, point_prec});
 
       // записываем особые точки в марки, которые привязываем к окну
       // (выбираем соотв. символ)
-      // TODO: создать пользовательский класс нужных для нас отображений точек на экране
+      // TODO: создать пользовательский класс нужных для нас точек на экране
+
       marks = new Marks{"x"};
       for (const auto& root_point : points)
         marks->add(converted_to_pix(root_point, origin, unit_intr));
@@ -277,14 +275,13 @@ void Graphix_window::update_points() {
       all_points.push_back(marks);
     }
 
-    // проходимся по вектору, куда пользователь вводит мат. функции и рисуем их пересения
+    // проходимся по вектору, куда вводит мат. функций и рисуем их пересечения
     // (начинаем идти со следующего номера, чтобы не было самопересечения)
     for (size_t j = i + 1; j < enter_menu.size(); j++) {
-
       // MEANS: другая введенная мат. функция
       const Math_func::function& oth_func = inputed_funcs[j];
 
-      // отображаем пересечания в том случае, если обе мат. функции валидны
+      // отображаем пересечения в том случае, если обе мат. функции валидны
       if (enter_menu[i]->is_input_valid() && enter_menu[j]->is_input_valid()) {
         // перезаписываем все пресечения в вектор особых точек
         points = vector<Math_calc::Point>(Math_calc::function_crosses{

@@ -60,8 +60,6 @@ class Window : public Fl_Window {
 };
 
 // DOES: вызывает основной цикл обработки событий библиотеки виджетов
-inline int gui_main() {
-  return Fl::run();
-}
+inline int gui_main() { return Fl::run(); }
 
 }  // namespace Graph_lib

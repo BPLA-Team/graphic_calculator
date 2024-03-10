@@ -8,7 +8,6 @@
 #include "../Graph_lib/Widgets.h"
 #include "../Graph_lib/Window.h"
 
-
 namespace Graphix_calc {
 
 // MEANS: класс поля, которое представляем собой и ввод и вывод

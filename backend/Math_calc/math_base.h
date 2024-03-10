@@ -22,8 +22,7 @@ struct Point {
 struct Segment {
   inline Segment(double _start, double _end) : start{_start}, end{_end} {
     // (код ошибки таков, так как по сути length = end - start < 0)
-    if (start > end)
-      throw std::invalid_argument("bad segment length");
+    if (start > end) throw std::invalid_argument("bad segment length");
   }
 
   inline Segment() : start{-0}, end{0} {}

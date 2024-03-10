@@ -12,7 +12,7 @@
 
 namespace Graphix_calc {
 
-// MEANS: класс, содержащий в себе ввод мат. функции, кнопки для графиков, производ., вывод (ошибок)
+// MEANS: класс,с вводом мат. функции, кнопками для графиков, вывод (ошибок)
 class Function_box : public Graph_lib::Widget {
  public:
   // упрощенный конструктор
@@ -60,7 +60,7 @@ class Function_box : public Graph_lib::Widget {
 
   // deriv
 
-  // DOES: устанавливает флаг о том, что график производной мат. функции нарисован
+  // DOES: устанавливает флаг, что график производной мат. функции нарисован
   inline void deriv_show() { is_deriv_visible = true; }
 
   // DOES: устанавливает флаг о том, что график производной мат. функции скрыт
@@ -83,7 +83,7 @@ class Function_box : public Graph_lib::Widget {
 
   // getters
 
-  // RETURNS: введеную мат. функцию
+  // RETURNS: введенную мат. функцию
   inline std::string get_string() const { return in_box->get_string(); }
 
   // RETURNS: индекс текущего Function_box'а
@@ -127,7 +127,7 @@ class Function_box : public Graph_lib::Widget {
   // MEANS: флаг, сообщающий о видимости графика введенной мат. функции
   bool is_graphix_visible{false};
 
-  // MEANS: флаг, сообщающий о видимости графика производной введенной мат. функции
+  // MEANS: флаг, сообщающий о видимости графика производной мат. функции
   bool is_deriv_visible{false};
 
   // ~vars

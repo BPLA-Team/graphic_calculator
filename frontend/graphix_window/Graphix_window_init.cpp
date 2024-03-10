@@ -16,12 +16,13 @@ using namespace Graphix_calc;
 #include "../utility/constants.h"
 using namespace Frontend_consts;
 
-// TODO: придумать, как подразбить это еще на функции, не нарушая идеалогии запрета копирования
+// TODO: придумать, как подразбить на функции, не нарушая запрета копирования
 
 Graphix_window::Graphix_window()
     : Graph_lib::Window({10, 10}, 1000, 750, "FIDocalcus"),
       unit_intr{50.0},
-      // точка начала системы координат смещена вправо, чтобы графики и оси не заезжали на меню
+      // точка начала системы координат смещена вправо, чтобы графики и оси не
+      // заезжали на меню
       origin{(w() + func_box_w) / 2, h() / 2},
       border{Point{border_dist, 0}, Point{border_dist, h()}},
       // кнопки изменения масштаба находятся справа и являются квадратами
@@ -50,7 +51,8 @@ Graphix_window::Graphix_window(Graph_lib::Point left_corner, pix_amount _width,
                                pix_amount _unit_intr)
     : Graph_lib::Window(left_corner, _width, _height, title),
       unit_intr{double(_unit_intr)},
-      // точка начала системы координат смещена вправо, чтобы графики и оси не заезжали на меню
+      // точка начала системы координат смещена вправо, чтобы графики и оси не
+      // заезжали на меню
       origin{(w() + func_box_w) / 2, h() / 2},
       border{Point{border_dist, 0}, Point{border_dist, h()}},
       // кнопки изменения масштаба находятся справа и являются квадратами
@@ -101,7 +103,7 @@ void Graphix_window::init() {
 
   // создаём оси с заданным в конструкторе значением ед. отрезка
 
-  x_axis = new Axis{Axis::Orientation::horisontal,
+  x_axis = new Axis{Axis::Orientation::horizontal,
                     origin,
                     w() - func_box_w,
                     unit_intr,

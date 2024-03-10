@@ -11,13 +11,14 @@ namespace Graphix_calc {
 // MEANS: фигура, представляющая собой мат. ось координат
 class Axis : public Graph_lib::Shape {
  public:
-  enum Orientation { horisontal, vertical };
+  enum Orientation { horizontal, vertical };
 
   // ARGS: ориентация, центр коорд., длина оси, длина ед. отрезка, подпись
   Axis(Orientation orient, Graph_lib::Point origin, pix_amount length,
        double _unit_intr, const std::string& label_text);
 
-  // ARGS: ориентация, центр коорд., длина оси, длина ед. отрезка, длина марк. отрезка, подпись
+  // ARGS: ориентация, центр коорд., длина оси, длина ед. отрезка,
+  // ARGS: длина марк. отрезка, подпись
   Axis(Orientation orient, Graph_lib::Point origin, pix_amount length,
        double _unit_intr, pix_amount _mark_intr, const std::string& label_text);
 

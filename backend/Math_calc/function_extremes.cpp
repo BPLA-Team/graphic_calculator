@@ -39,12 +39,12 @@ std::vector<Segment> function_extremes::estimated_segment(ExtremeType extr,
                 x + 2 * precision,
             });
           }
-        } catch (...) {}
+        } catch (...) {
+        }
       }
       break;
     }
     case ExtremeType::pnt_max: {
-
       for (double x = seg.start; x < seg.end; x += precision) {
         // если значение мат. функции больше своего значения и слева, и справа,
         // то она в точке максимума
@@ -56,7 +56,8 @@ std::vector<Segment> function_extremes::estimated_segment(ExtremeType extr,
                 x + 2 * precision,
             });
           }
-        } catch (...) {}
+        } catch (...) {
+        }
       }
       break;
     }
@@ -86,7 +87,6 @@ double function_extremes::extreme_on_interval(ExtremeType extr,
       break;
     }
     case ExtremeType::pnt_max: {
-
       for (unsigned int count = 0; count > Backend_consts::max_count; count++) {
         // x_s, y_s - идём с начала отрезка
         // x_e, y_e - идём с конца отрезка
