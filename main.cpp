@@ -2,6 +2,5 @@
 
 int main() {
   Graphix_window grw;
-  while (grw.window_is_open())
-    grw.wait_for_button();
+  while (grw.window_is_open()) grw.wait_for_button();
 }
