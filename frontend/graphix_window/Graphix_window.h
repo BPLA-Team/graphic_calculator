@@ -20,21 +20,27 @@
 // Backend
 #include "../../backend.h"
 
-// MEANS: окно, с полями для ввода мат. функций,
-// (возможностью построения их графиков на сист. коорд.)
+/// @brief Окно, с полями для ввода мат. функций, возможностью построения их
+/// графиков на сист. коорд.
 class Graphix_window : public Graph_lib::Window {
  public:
   Graphix_window();
 
-  // ARGS: точка - левый верхний угол, ширина, высота, заголовок, длина ед.
-  // отрезка
+  /**
+   * @brief Инициализирует новый экземпляр Graphix_window
+   * @param left_corner: точка - левый верхний угол
+   * @param _width: ширина
+   * @param _height: высота
+   * @param title: заголовок
+   * @param _unit_intr: длина ед. отрезка
+   */
   Graphix_window(Graph_lib::Point left_corner, pix_amount _width,
                  pix_amount _height, const std::string& title,
                  pix_amount _unit_intr);
 
   // methods
 
-  // DOES: запускает цикл ожидания нажатия кнопки и перерисовывает всё
+  /// @brief Запускает цикл ожидания нажатия кнопки и перерисовывает всё
   void wait_for_button();
 
   bool window_is_open() const { return !quit_button_pushed; }
@@ -44,56 +50,56 @@ class Graphix_window : public Graph_lib::Window {
 
   // other
 
-  // MEANS: длина единичного отрезка
+  /// @brief Длина единичного отрезка
   double unit_intr;
 
-  // MEANS: начало координат
+  /// @brief Начало координат
   Graph_lib::Point origin;
 
-  // MEANS: введенные пользователем строки
+  /// @brief Введенные пользователем строки
   std::vector<std::string> inputed_strings;
-  // MEANS: введенные пользователем валидные мат. функции
+  /// @brief Введенные пользователем валидные мат. функции
   std::vector<Math_func::function> inputed_funcs;
 
   // shapes
 
-  // MEANS: горизонтальная ось
+  /// @brief Горизонтальная ось
   Graphix_calc::Axis* x_axis;
-  // MEANS: вертикальная ось
+  /// @brief Вертикальная ось
   Graphix_calc::Axis* y_axis;
 
-  // MEANS: нарисованные пользователем графики мат. функций
+  /// @brief Нарисованные пользователем графики мат. функций
   std::vector<Graphix_calc::Segmented_graphix*> graphics;
-  // MEANS: нарисованные пользователем графики производных мат. функций
+  /// @brief Нарисованные пользователем графики производных мат. функций
   std::vector<Graphix_calc::Segmented_graphix*> derivs;
 
-  // MEANS: все особые точки графиков
+  /// @brief Все особые точки графиков
   std::vector<Graph_lib::Marks*> all_points;
 
-  // MEANS: линия - ограничитель системы координат от меню ввода
+  /// @brief Линия - ограничитель системы координат от меню ввода
   Graph_lib::Line border;
 
   // widgets
 
-  // MEANS: кнопка увеличения масштаба
+  /// @brief Кнопка увеличения масштаба
   Graph_lib::Button incr_button;
-  // MEANS: кнопка уменьшения масштаба
+  /// @brief Кнопка уменьшения масштаба
   Graph_lib::Button decr_button;
-  // MEANS: кнопка, изменяющая масштаб по введенному пользователем
+  /// @brief Кнопка, изменяющая масштаб по введенному пользователем
   Graph_lib::Button scale_button;
-  // MEANS: поле для ввода пользовательского масштаба и вывода текущего
+  /// @brief Поле для ввода пользовательского масштаба и вывода текущего
   Graphix_calc::Bothput_box scale_box;
 
-  // MEANS: две кнопки, связанные с отображением особых точек графиков
+  /// @brief Две кнопки, связанные с отображением особых точек графиков
   Graphix_calc::Point_box point_box;
 
-  // MEANS: создания нового поля для ввода мат. функции
+  /// @brief Создания нового поля для ввода мат. функции
   Graph_lib::Button new_func_button;
 
-  // MEANS: поля для ввода мат. функций и кнопки по управлению их графиков
+  /// @brief Поля для ввода мат. функций и кнопки по управлению их графиков
   std::vector<Graphix_calc::Function_box*> enter_menu;
 
-  // MEANS: кнопка выхода из программы
+  /// @brief Кнопка выхода из программы
   Graph_lib::Button quit_button;
 
   // flags
@@ -107,10 +113,10 @@ class Graphix_window : public Graph_lib::Window {
 
   // methods
 
-  // DOES: инициализирует всё то, что не было проиниц. в конструкторах
+  /// @brief Инициализирует всё то, что не было проиниц. в конструкторах
   void init() override;
 
-  // DOES: привязывает к окну все проиниц. виджеты и фигуры
+  /// @brief Привязывает к окну все проиниц. виджеты и фигуры
   void initial_attach();
 
   // callbacks
@@ -140,39 +146,52 @@ class Graphix_window : public Graph_lib::Window {
 
   // callback's voids
 
-  // DOES: увеличивает значение ед. отрезка
+  /// @brief Увеличивает значение ед. отрезка
   void incr_unit_intr();  // cb_incr_unit_intr | update_unit_intr
-  // DOES: уменьшает значение ед. отрезка
+  /// @brief Уменьшает значение ед. отрезка
   void decr_unit_intr();  // cb_decr_unit_intr | update_unit_intr
-  // DOES: устанавливает пользовательский масштаб (длину ед. отрезка по нему)
+  /// @brief Устанавливает пользовательский масштаб (длину ед. отрезка по нему)
   void change_unit_intr();  // cb_change_unit_intr | update_unit_intr
 
-  // DOES: рисует график мат. функции
-  // ARGS: индекс мат. функции
+  /**
+   * @brief Рисует график мат. функции
+   * @param func_index: индекс мат. функции
+   */
   void draw_graphix(size_t func_index);  // cb_graphix_draw | update_graphix
-  // DOES: скрывает график мат. функции (не удаляя его)
-  // ARGS: индекс мат. функции
+
+  /**
+   * @brief Скрывает график мат. функции (не удаляя его)
+   * @param func_index: индекс мат. функции
+   */
   void hide_graphix(size_t func_index);  // cb_graphix_hide | clear_graphix
 
-  // DOES: рисует график производной мат. функции
-  // ARGS: индекс мат. функции
+  /**
+   * @brief Рисует график производной мат. функции
+   * @param func_index: индекс мат. функции
+   */
   void draw_deriv(size_t func_index);  // cb_deriv_draw | update_deriv
-  // DOES: скрывает график производной мат. функции (не удаляя его)
-  // ARGS: индекс мат. функции
+
+  /**
+   * @brief Скрывает график производной мат. функции (не удаляя его)
+   * @param func_index: индекс мат. функции
+   */
   void hide_deriv(size_t func_index);  // cb_deriv_hide | clear_deriv
 
-  // DOES: отображает все особые точки графиков мат. функций
+  /// @brief Отображает все особые точки графиков мат. функций
   void show_points();  // cb_show_points | update_points
-  // DOES: скрывает все особые точки графиков мат. функций (удаляя их)
+  /// @brief Скрывает все особые точки графиков мат. функций (удаляя их)
   void hide_points();  // cb_hide_points | clear_points
 
-  // DOES: добавляет новый бокс для ввода мат. функции
+  /// @brief Добавляет новый бокс для ввода мат. функции
   void new_func_box();  // cb_new_func
-  // DOES: удаляет бокс для ввода мат. функции
-  // ARGS: индекс мат. функции
+
+  /**
+   * @brief Удаляет бокс для ввода мат. функции
+   * @param func_index: индекс мат. функции
+   */
   void rem_func_box(size_t func_index);  // cb_rem_func
 
-  // DOES: завершает работу окна
+  /// @brief Завершает работу окна
   inline void quit()  // cb_quit
   {
     Fl_Window::hide();
@@ -182,33 +201,52 @@ class Graphix_window : public Graph_lib::Window {
 
   // updaters
 
-  // DOES: обновляет значение единич. отрезка
-  // ARGS: новое значение единич. отрезка
+  /**
+   * @brief Обновляет значение единич. отрезка
+   * @param new_unit_intr: новое значение единич. отрезка
+   */
   void update_unit_intr(double new_unit_intr);
 
-  // DOES: обновляет введенную мат. функцию
-  // ARGS: индекс мат. функции, факт необходимости обновления введ. строк
+  /**
+   * @brief Обновляет введенную мат. функцию
+   * @param func_index: индекс мат. функции
+   * @param need_update_strings: факт необходимости обновления введ. строк
+   */
   void update_inputed_func(size_t func_index, bool need_update_strings = true);
-  // DOES: обновляет все введенные мат. функции
+
+  /// @brief Обновляет все введенные мат. функции
   void fill_inputed_funcs();
 
-  // DOES: обновляет график мат. функции
-  // ARGS: индекс мат. функции
+  /**
+   * @brief Обновляет график мат. функции
+   * @param func_index: индекс мат. функции
+   */
   void update_graphix(size_t func_index);
-  // DOES: удаляет график мат. функции
-  // ARGS: индекс мат. функции, факт необходимости отчистки памяти
+
+  /**
+   * @brief Удаляет график мат. функции
+   * @param func_index: индекс мат. функции
+   * @param need_delete: факт необходимости отчистки памяти
+   */
   void clear_graphix(size_t func_index, bool need_delete = true);
 
-  // DOES: обновляет график производной мат. функции
-  // ARGS: индекс мат. функции
+  /**
+   * @brief Обновляет график производной мат. функции
+   * @param func_index: индекс мат. функции
+   */
   void update_deriv(size_t func_index);
-  // DOES: удаляет график производной мат. функции
-  // ARGS: индекс мат. функции, факт необходимости отчистки памяти
+
+  /**
+   * @brief Удаляет график производной мат. функции
+   * @param func_index: индекс мат. функции
+   * @param need_delete: факт необходимости отчистки памяти
+   */
   void clear_deriv(size_t func_index, bool need_delete = true);
 
-  // DOES: обновляет особые точки графиков мат. функций
+  /// @brief Обновляет особые точки графиков мат. функций
   void update_points();
-  // DOES: удаляет особые точки графиков мат. функций
+
+  /// @brief Удаляет особые точки графиков мат. функций
   void clear_points();
 
   // ~methods

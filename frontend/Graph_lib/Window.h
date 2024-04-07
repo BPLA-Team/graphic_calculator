@@ -38,11 +38,10 @@ class Window : public Fl_Window {
   void attach(Shape&);
   void attach(Widget&);
 
-  // DOES: удаляет фигуру из соотв. списка
-  // ARGS: фигура
+  /// @brief Удаляет фигуру из соотв. списка
   void detach(Shape&);
-  // DOES: отвязывает виджет от окна, деактивируя коллбэки
-  // ARGS: виджет
+
+  /// @brief Отвязывает виджет от окна, деактивируя коллбэки
   void detach(Widget&);
 
   void put_on_top(Shape&);
@@ -59,7 +58,10 @@ class Window : public Fl_Window {
   virtual void init();
 };
 
-// DOES: вызывает основной цикл обработки событий библиотеки виджетов
+/**
+ * @brief Вызывает основной цикл обработки событий библиотеки виджетов
+ * @return int: результат работы
+ */
 inline int gui_main() { return Fl::run(); }
 
 }  // namespace Graph_lib

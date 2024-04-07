@@ -42,13 +42,13 @@ vector<string> function::lexemes() const {
 
   vector<string> res;
 
-  // MEANS: текущая лексема
+  /// @brief Текущая лексема
   string lex;
 
   // TODO: написать комментарии по работе этого цикла
 
   for (size_t i = 0; i < func_str.size(); i++) {
-    // MEANS: текущий символ строки
+    /// @brief Текущий символ строки
     char ch = func_str[i];
     switch (ch) {
       case minus: {
@@ -116,20 +116,20 @@ vector<string> function::lexemes() const {
 vector<string> function::reverse_polish() const {
   func_lexs_validation();
 
-  // MEANS: вектор, куда записывается итоговая обратная польская запись
+  /// @brief Вектор, куда записывается итоговая обратная польская запись
   vector<string> res;
 
-  // MEANS: стек с записанными операциями
+  /// @brief Стек с записанными операциями
   // (нужен для хранения операций в правильном порядке)
   stack<string> st_oper;
   st_oper.push("\0");
 
   for (const auto& lex : lexs) {
-    // MEANS: символ, обозначающий текущую лексему
+    /// @brief Символ, обозначающий текущую лексему
     // (нужен для switch-case)
     char l_c = s_to_c(lex);
 
-    // MEANS: символ, обозначающий последний элемент в стеке с операциями
+    /// @brief Символ, обозначающий последний элемент в стеке с операциями
     char last = s_to_c(st_oper.top());
 
     // TODO: написать комментарии по работе этого свитча
@@ -221,7 +221,7 @@ vector<string> function::reverse_polish() const {
 }
 
 double function::calc(double x) const {
-  // MEANS: стек, куда складываем уже посчитанные числа
+  /// @brief Стек, куда складываем уже посчитанные числа
   // IDK: а это точно так?
   stack<double> calced_numbs;
 
@@ -229,13 +229,13 @@ double function::calc(double x) const {
 
   // раскрываем обратную польскую нотацию, подставляя x
   for (const auto& lex : rev_pol) {
-    // MEANS: последний символ в стеке
+    /// @brief Последний символ в стеке
     double l;
 
-    // MEANS: предпоследний символ в стеке (последний после удаления l)
+    /// @brief Предпоследний символ в стеке (последний после удаления l)
     double p;
 
-    // MEANS: символ, обозначающий текущую лексему в обратной польской записи
+    /// @brief Символ, обозначающий текущую лексему в обратной польской записи
     // (нужен для switch-case)
     char l_c = s_to_c(lex);
 

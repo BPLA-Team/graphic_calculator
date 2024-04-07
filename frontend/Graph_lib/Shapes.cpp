@@ -34,37 +34,6 @@ void Shape::move(int dx, int dy) {
 
 Shape::~Shape() {}
 
-//-------------------------------------------------------------------------------------------------------------------------------
-
-// RETURNS: расстояние до точки пересечения
-// (если две линии (point_1,point_2) и (point_3,point_4) пересекаются)
-inline std::pair<double, double> line_intersect(Point point_1, Point point_2,
-                                                Point point_3, Point point_4,
-                                                bool& parallel)
-
-{
-  double x1 = point_1.x;
-  double x2 = point_2.x;
-  double x3 = point_3.x;
-  double x4 = point_4.x;
-  double y1 = point_1.y;
-  double y2 = point_2.y;
-  double y3 = point_3.y;
-  double y4 = point_4.y;
-
-  double denom = (y4 - y3) * (x2 - x1) - (x4 - x3) * (y2 - y1);
-  if (denom == 0) {
-    parallel = true;
-    return std::make_pair(0., 0.);
-  }
-  parallel = false;
-  return std::make_pair(
-      ((x4 - x3) * (y1 - y3) - (y4 - y3) * (x1 - x3)) / denom,
-      ((x2 - x1) * (y1 - y3) - (y2 - y1) * (x1 - x3)) / denom);
-}
-
-//-------------------------------------------------------------------------------------------------------------------------------
-
 void Open_polyline::draw_lines() const {
   if (fill_color().visibility()) {
     fl_color(fill_color().as_uint());
@@ -109,9 +78,11 @@ void Text::draw_lines() const {
 
 //-------------------------------------------------------------------------------------------------------------------------------
 
-// DOES: рисует 1 марку
-// ARGS: расположение, символ
-// (чисто вспомогательная)
+/**
+ * @brief Рисует 1 марку
+ * @param _loc: расположение
+ * @param c: символ марки
+ */
 void draw_mark(Point _loc, char c) {
   static const int dx = 4;
   static const int dy = 4;

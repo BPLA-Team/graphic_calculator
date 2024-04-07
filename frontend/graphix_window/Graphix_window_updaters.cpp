@@ -70,11 +70,11 @@ void Graphix_window::update_inputed_func(size_t func_index,
       inputed_strings[i] = enter_menu[i]->get_string();
   }
 
-  // MEANS: введенная строка - возможная строка мат. функции
+  /// @brief Введенная строка - возможная строка мат. функции
   // (важно именно копировать её из соотв. вектора)
   string estimated_func_str = inputed_strings[func_index];
 
-  // MEANS: вектор всех номеров мат. функций, которые зависят от возможной
+  /// @brief Вектор всех номеров мат. функций, которые зависят от возможной
   vector<size_t> dependencies;
 
   try {
@@ -133,10 +133,10 @@ void Graphix_window::update_graphix(size_t func_index) {
 
   // если проверка успешна, рисуем график по введённой валидной мат. функции
   if (enter_menu[func_index]->is_input_valid()) {
-    // MEANS: введенная мат. функция
+    /// @brief Введенная мат. функция
     const Math_func::function& func = inputed_funcs[func_index];
 
-    // MEANS: график мат. функции, поделенный на отрезки
+    /// @brief График мат. функции, поделенный на отрезки
     Segmented_graphix* seged_graphix;
 
     // если есть переменная, используем конструктор сегментированного график
@@ -164,7 +164,7 @@ void Graphix_window::update_graphix(size_t func_index) {
 }
 
 void Graphix_window::clear_graphix(size_t func_index, bool need_delete) {
-  // MEANS: график мат. функции, поделенный на отрезки
+  /// @brief График мат. функции, поделенный на отрезки
   Graphix_calc::Segmented_graphix*& seged_graphix = graphics[func_index];
 
   // отвязываем от окна
@@ -182,10 +182,10 @@ void Graphix_window::update_deriv(size_t func_index) {
   // если проверка прошла успешна, рисуем график производной по
   // введённой валидной мат. функции
   if (enter_menu[func_index]->is_input_valid()) {
-    // MEANS: введенная мат. функция
+    /// @brief Введенная мат. функция
     const Math_func::function& func = inputed_funcs[func_index];
 
-    // MEANS: график производной мат. функции, поделенный на отрезки
+    /// @brief График производной мат. функции, поделенный на отрезки
     Segmented_graphix* seged_deriv = new Segmented_graphix(
         func.differentiate, unit_intr, origin, {border_dist, h()}, {w(), 0});
 
@@ -202,7 +202,7 @@ void Graphix_window::update_deriv(size_t func_index) {
 }
 
 void Graphix_window::clear_deriv(size_t func_index, bool need_delete) {
-  // MEANS: график производной мат. функции, поделенный на отрезки
+  /// @brief График производной мат. функции, поделенный на отрезки
   Segmented_graphix*& seged_deriv = derivs[func_index];
 
   // отвязываем от окна
@@ -231,14 +231,14 @@ void Graphix_window::update_points() {
   // проходимся по вектору, куда мат. функций и рисуем их экстремумы, корни
   // (проходиться нужно именно таким образом, ибо у нас вложенный перебор)
   for (size_t i = 0; i < enter_menu.size(); i++) {
-    // MEANS: введенная мат. функция
+    /// @brief Введенная мат. функция
     const Math_func::function& func = inputed_funcs[i];
 
-    // MEANS: особые точки
+    /// @brief Особые точки
     // (каждый раз перезаписывается)
     vector<Math_calc::Point> points;
 
-    // MEANS: особые точки в виде символов
+    /// @brief Особые точки в виде символов
     Marks* marks = new Marks{empty_str};
 
     // отображаем корни и экстремумы, если мат. функция валидна
@@ -278,7 +278,7 @@ void Graphix_window::update_points() {
     // проходимся по вектору, куда вводит мат. функций и рисуем их пересечения
     // (начинаем идти со следующего номера, чтобы не было самопересечения)
     for (size_t j = i + 1; j < enter_menu.size(); j++) {
-      // MEANS: другая введенная мат. функция
+      /// @brief Другая введенная мат. функция
       const Math_func::function& oth_func = inputed_funcs[j];
 
       // отображаем пересечения в том случае, если обе мат. функции валидны

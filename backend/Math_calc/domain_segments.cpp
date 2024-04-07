@@ -16,10 +16,10 @@ vector<Segment> domain_segments(const function<double(double)>& calc,
 
   std::vector<Segment> res;
 
-  // MEANS: начало отрезка уже было записано
+  /// @brief Начало отрезка уже было записано
   bool is_x_started = false;
 
-  // MEANS: текущий отрезок
+  /// @brief Текущий отрезок
   Segment seg;
 
   for (double x = min_x; x < max_x; x += precision) {

@@ -5,7 +5,7 @@
 
 namespace Math_calc {
 
-// MEANS: вещественная точка
+/// @brief Вещественная точка
 struct Point {
   inline Point(double _x, double _y) : x{_x}, y{_y} {}
 
@@ -18,7 +18,7 @@ struct Point {
   // ~vars
 };
 
-// MEANS: вещественный отрезок
+/// @brief Вещественный отрезок
 struct Segment {
   inline Segment(double _start, double _end) : start{_start}, end{_end} {
     // (код ошибки таков, так как по сути length = end - start < 0)

@@ -10,7 +10,7 @@
 
 namespace Graphix_calc {
 
-// MEANS: класс поля, которое представляем собой и ввод и вывод
+/// @brief Класс поля, которое представляем собой и ввод и вывод
 class Bothput_box : public Graph_lib::Widget {
  public:
   Bothput_box(Graph_lib::Point _loc, pix_amount _width, pix_amount _height,

@@ -12,14 +12,18 @@
 
 namespace Math_calc {
 
-// MEANS: класс, хранящий в себе точки - пересеч. графика мат. функ. с осью Ox
+/// @brief Класс, хранящий в себе точки - пересеч. графика мат. функ. с осью Ox
 class function_roots {
  public:
   function_roots() = default;
 
-  // ARGS: мат. функция, левая нижняя точка - начало области поиска точек,
-  // ARGS: правая верхняя точка - конец области поиска точек, точность
-  // (поиск точек происходит на прямоугольной области, края которой - точки)
+  /**
+   * @brief Инициализирует новый экземпляр function_roots
+   * @param _func: мат. функция
+   * @param left_bottom: левая нижняя точка - начало области поиска точек
+   * @param right_top: правая верхняя точка - конец области поиска точек
+   * @param _precision: точность
+   */
   function_roots(Math_func::function _func, Math_calc::Point left_bottom,
                  Math_calc::Point right_top, double _precision);
 
@@ -35,15 +39,18 @@ class function_roots {
  protected:
   // methods
 
-  // RETURNS: подсегменты, где могут находиться корни
-  // ARGS: сегмент, на котором ищем
-  // (используя тот факт, что по разные стороны от точки-корня мат. функция
-  // имеет разные знаки)
+  /**
+   * @return std::vector<Segment>: подсегменты, где могут находиться корни
+   * @details Используя тот факт, что по разные стороны от точки-корня мат.
+   * функция имеет разные знаки
+   * @arg сегмент, на котором ищем
+   */
   std::vector<Segment> estimated_segment(Segment) const;
 
-  // RETURNS: корень на интервале (значение x)
-  // ARGS: сегмент, на котором ищем
-  // (используя метод золотого сечения)
+  /**
+   * @return double: корень на интервале (значение x)
+   * @arg сегмент, на котором ищем
+   */
   double root_on_interval(Segment) const;
 
   // ~methods
@@ -51,10 +58,11 @@ class function_roots {
  private:
   // vars
 
-  // MEANS: точность (используем везде, поэтому сохраняем в качестве поля)
+  /// @brief Точность
+  // (используем везде, поэтому сохраняем в качестве поля)
   double precision;
 
-  // MEANS: введенная мат. функция
+  /// @brief Введенная мат. функция
   Math_func::function f;
 
   std::vector<Point> points;
@@ -63,9 +71,11 @@ class function_roots {
 
   // methods
 
-  // RETURNS: все корни (точки: пары вида (x,y))
-  // ARGS: левая нижняя точка - начало области поиска точек,
-  // ARGS: правая верхняя точка - конец области поиска точек
+  /**
+   * @return std::vector<Point>: все корни (точки: пары вида (x,y))
+   * @param left_bottom: левая нижняя точка - начало области поиска точек
+   * @param right_top: правая верхняя точка - конец области поиска точек
+   */
   std::vector<Point> roots(Math_calc::Point left_bottom, Point right_top) const;
 
   // ~methods

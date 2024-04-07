@@ -30,8 +30,4 @@ add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} ${FLTK_LIBRARIES} ${OPENGL_LIBRARIES})
 
-if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
-  target_link_libraries(${PROJECT_NAME} fltk_jpeg fltk_png fltk_z)
-endif()
-
 install(TARGETS ${PROJECT_NAME})

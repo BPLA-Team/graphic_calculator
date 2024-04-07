@@ -22,9 +22,9 @@ void function::func_str_validation() const {
   // проверка на пустую строку
   if (func_str == "") throw invalid_argument("empty expression");
 
-  // MEANS: строка со всеми разрешенными символами
+  /// @brief Строка со всеми разрешенными символами
   const string calc_chars = ".1234567890+-*/^()cosinexptal";
-  // MEANS: строка с разрешенными мат. операциями
+  /// @brief Строка с разрешенными мат. операциями
   const string math_oper_chars = "+-*/^";
 
   // проверка на количество скобочек
@@ -38,18 +38,18 @@ void function::func_str_validation() const {
       c_in_s(func_str[func_str.size() - 1], math_oper_chars + point))
     throw invalid_argument("invalid syntax at edges");
 
-  // MEANS: счетчик незакрытых скобочек
+  /// @brief Счетчик незакрытых скобочек
   int count_brackets = 0;
 
   // проходимся по всей строке
   for (size_t i = 0; i < func_str.size(); i++) {
-    // MEANS: текущий символ
+    /// @brief Текущий символ
     char c = func_str[i];
 
-    // MEANS: предыдущий символ
+    /// @brief Предыдущий символ
     char p_c = ' ';
 
-    // MEANS: следующий символ
+    /// @brief Следующий символ
     char n_c = ' ';
 
     // (вычисление значений этих символов)
@@ -103,15 +103,15 @@ void function::func_str_validation() const {
     // возле числа должен стоять либо знак, либо точка, либо скобка
     // (при строке из одной цифры, эта проверка не подходит)
     else if (isdigit(c) && func_str.size() > 1) {
-      // MEANS: строка с почти всеми символами, которые могут быть возле цифры
+      /// @brief Строка с почти всеми символами, которые могут быть возле цифры
       // (почти, так как еще скобки с разных сторон, но мы их считаем далее)
       string valid_chars_near_digit = "0123456789" + math_oper_chars + point;
 
-      // MEANS: левый (предыдущий) символ валиден
+      /// @brief Левый (предыдущий) символ валиден
       // (у цифры слева может быть: цифра, точка, знак или открытая скобка)
       bool is_left_valid = 1;
 
-      // MEANS: правый (следующий) символ валиден
+      /// @brief Правый (следующий) символ валиден
       // (у цифры справа может быть: цифра, точка, знак или закрытая скобка)
       bool is_right_valid = 1;
 
@@ -133,15 +133,15 @@ void function::func_str_validation() const {
 }
 
 void function::func_lexs_validation() const {
-  // MEANS: вектор, со всеми разреш. лекс., обозначающими элем. мат. функции
+  /// @brief Вектор, со всеми разреш. лекс., обозначающими элем. мат. функции
   const vector<string> functions{"sin", "cos", "tan", "exp", "ln", "um"};
 
   for (size_t i = 0; i < lexs.size(); i++) {
     // string l = lexs[i];
-    // MEANS: символ, обозначающий текущую лексему
+    /// @brief Символ, обозначающий текущую лексему
     char l_c = s_to_c(lexs[i]);
 
-    // MEANS: символ, обозначающий следующую лексему
+    /// @brief Символ, обозначающий следующую лексему
     char n_c = ' ';
 
     // (вычисление этого символа)

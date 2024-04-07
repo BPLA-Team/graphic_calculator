@@ -10,12 +10,15 @@
 
 namespace Math_func {
 
-// MEANS: математическая функция
+/// @brief Математическая функция
 class function {
  public:
   function() = default;
 
-  // ARGS: строка, представляющая собой мат. функцию
+  /**
+   * @brief Инициализирует новый экземпляр function
+   * @param _func_str: строка, представляющая собой мат. функцию
+   */
   function(std::string _func_str);
 
   function(const function&);
@@ -26,18 +29,19 @@ class function {
 
   // TODO: избавиться от лямбд как от полей
 
-  // RETURNS: значение мат. функции
-  // ARGS: значение x
+  /// @brief Значение мат. функции
   const std::function<double(double)> calculate = [this](double x) {
     return calc(x);
   };
 
-  // RETURNS: значение мат. функции
-  // ARGS: значение x
+  /**
+   * @brief: Значение мат. функции
+   * @param x
+   * @return double
+   */
   inline double operator()(double x) const { return calc(x); }
 
-  // RETURNS: значение производной мат. функции
-  // ARGS: значение x
+  /// @brief Значение производной мат. функции
   const std::function<double(double)> differentiate = [this](double x) {
     return (calc(x + Backend_consts::delta_x) -
             calc(x - Backend_consts::delta_x)) /
@@ -48,7 +52,10 @@ class function {
 
   bool has_var() const;
 
-  // RETURNS: мат. функция в виде строки
+  /**
+   * @brief Возвращает значение мат. функции в виде строки
+   * @return std::string: строка
+   */
   inline std::string get_func_str() const { return func_str; }
 
   function& operator=(const function&);
@@ -58,39 +65,44 @@ class function {
  private:
   // vars:
 
-  // MEANS: мат. функция в виде строки
+  /// @brief Мат. функция в виде строки
   std::string func_str;
 
-  // MEANS: вектор лексем от мат. функции
+  /// @brief Вектор лексем от мат. функции
   std::vector<std::string> lexs;
 
-  // MEANS: вектор лексем, записанный в обратной польской нотации
+  /// @brief Вектор лексем, записанный в обратной польской нотации
   std::vector<std::string> rev_pol;
 
   // ~vars:
 
   // methods:
 
-  // DOES: проверяет мат. функцию в виде строки, на валидность
-  // DOES: генерирует ошибки в том случае, если ввод инвалиден
-  // (правильное кол-во скобок, отсутствие лишних символов)
-  // (правильное использование знаков, точек, цифр)
+  /**
+   * @brief Проверяет мат. функцию в виде строки, на валидность
+   * @details Правильное кол-во скобок, отсутствие лишних символов, правильное
+   * использование знаков, точек, цифр)
+   * @throw std::invalid_argument: в том случае, если ввод инвалиден
+   */
   void func_str_validation() const;
 
-  // DOES: проверяет вектор лексем от мат. функции на валидность
-  // DOES: генерирует ошибки в том случае, если ввод инвалиден
-  // (правильное использование элементарной мат. функций (типа exp, sin, ln)
-  // (отсутствие лишних переменных)
+  /**
+   * @brief Проверяет вектор лексем от мат. функции на валидность
+   * @details Правильное использование элементарной мат. функций (типа exp, sin,
+   * ln), отсутствие лишних переменных
+   * @throw std::invalid_argument: в том случае, если ввод инвалиден
+   */
   void func_lexs_validation() const;
 
-  // RETURNS: вектор лексем от мат. функции
   std::vector<std::string> lexemes() const;
 
-  // RETURNS: вектор лексем, записанный в обратной польской нотации
   std::vector<std::string> reverse_polish() const;
 
-  // RETURNS: значение мат. функции
-  // ARGS: значение x
+  /**
+   * @brief Значение мат. функции
+   * @param x
+   * @return double
+   */
   double calc(double x) const;
 
   // ~methods:

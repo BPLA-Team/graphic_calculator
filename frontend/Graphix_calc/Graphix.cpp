@@ -23,7 +23,7 @@ Graphix::Graphix(function<double(double)> calc, double min_x, double max_x,
     add(converted_to_pix({min_x, calc(min_x)}, origin, unit_intr));
     add(converted_to_pix({max_x, calc(max_x)}, origin, unit_intr));
   } else {
-    // MEANS: перебираемое значение x мат. функции
+    /// @brief Перебираемое значение x мат. функции
     double x = min_x;
     // (цикл нужен только, чтобы считать сколько точек уже было добавлено)
     for (unsigned int i = 0; i < point_amount; i++) {

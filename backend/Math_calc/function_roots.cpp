@@ -43,8 +43,7 @@ vector<Segment> function_roots::estimated_segment(Segment seg) const {
 }
 
 double function_roots::root_on_interval(Segment seg) const {
-  // RETURNS: значение от возведенной в квадрат мат. функции
-  // ARGS: значение x
+  /// @brief Значение от возведенной в квадрат мат. функции
   // IDK: почему это здесь нужно?
   auto _f = [this](double x) { return pow(f(x), 2); };
 

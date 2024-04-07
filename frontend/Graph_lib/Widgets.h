@@ -17,9 +17,11 @@ W& reference_to(void* ptr_wid) {
   return *static_cast<W*>(ptr_wid);
 }
 
-// MEANS: абстрактный объект взаимодействия с пользователем
-// (виджет — это дескриптор Fl_widget, но *не* Fl_widget)
-// (мы стараемся держать классы интерфейса на расстоянии от FLTK)
+/**
+ * @brief Абстрактный объект взаимодействия с пользователем
+ * @details Виджет — это дескриптор Fl_widget, но *не* Fl_widget, мы стараемся
+ * держать классы интерфейса на расстоянии от FLTK)
+ */
 class Widget {
  public:
   Widget() = default;
@@ -51,10 +53,10 @@ class Widget {
  protected:
   // vars
 
-  // MEANS: окно, которому принадлежит виджет
+  /// @brief Окно, которому принадлежит виджет
   Window* own;
 
-  // MEANS: указатель на FLTK виджет
+  /// @brief Указатель на FLTK виджет
   Fl_Widget* ptr_wid;
 
   Point loc;

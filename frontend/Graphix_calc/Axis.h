@@ -8,17 +8,31 @@
 
 namespace Graphix_calc {
 
-// MEANS: фигура, представляющая собой мат. ось координат
+/// @brief Фигура, представляющая собой мат. ось координат
 class Axis : public Graph_lib::Shape {
  public:
   enum Orientation { horizontal, vertical };
 
-  // ARGS: ориентация, центр коорд., длина оси, длина ед. отрезка, подпись
+  /**
+   * @brief Инициализирует новый экземпляр Axis
+   * @param orient: ориентация
+   * @param origin: центр коорд.
+   * @param length: длина оси
+   * @param _unit_intr: длина ед. отрезка
+   * @param label_text: подпись
+   */
   Axis(Orientation orient, Graph_lib::Point origin, pix_amount length,
        double _unit_intr, const std::string& label_text);
 
-  // ARGS: ориентация, центр коорд., длина оси, длина ед. отрезка,
-  // ARGS: длина марк. отрезка, подпись
+  /**
+   * @brief Инициализирует новый экземпляр Axis
+   * @param orient: ориентация
+   * @param origin: центр коорд.
+   * @param length: длина оси
+   * @param _unit_intr: длина ед. отрезка
+   * @param _mark_intr: длина марк. отрезка
+   * @param label_text: подпись
+   */
   Axis(Orientation orient, Graph_lib::Point origin, pix_amount length,
        double _unit_intr, pix_amount _mark_intr, const std::string& label_text);
 
@@ -26,8 +40,12 @@ class Axis : public Graph_lib::Shape {
 
   // methods
 
-  // DOES: устанавливает все нужные точки
-  // ARGS: ориентация, начало координат, длина оси
+  /**
+   * @brief Устанавливает все нужные точки
+   * @param orient: ориентация
+   * @param origin: начало координат
+   * @param length: длина оси
+   */
   void init(Orientation orient, Graph_lib::Point origin, pix_amount length);
 
   void draw_lines() const override;
@@ -39,19 +57,19 @@ class Axis : public Graph_lib::Shape {
  private:
   // vars
 
-  // MEANS: длина единичного отрезка
+  /// @brief Длина единичного отрезка
   double unit_intr;
 
-  // MEANS: длина отмечаемого отрезка
+  /// @brief Длина отмечаемого отрезка
   pix_amount mark_intr;
 
-  // MEANS: надпись рядом с осью
+  /// @brief Надпись рядом с осью
   Graph_lib::Text label;
 
-  // MEANS: насечки
+  /// @brief Насечки
   Graph_lib::Lines notches;
 
-  // MEANS: надписи к насечкам
+  /// @brief Надписи к насечкам
   std::vector<Graph_lib::Text*> marks;
 
   // ~vars

@@ -5,7 +5,7 @@
 
 namespace Graphix_calc {
 
-// MEANS: кнопка, которая имеет номер
+/// @brief Кнопка, которая имеет номер
 class Numbed_button : public Graph_lib::Button {
  public:
   inline Numbed_button(Graph_lib::Point _loc, pix_amount _width,

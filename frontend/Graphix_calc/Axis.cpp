@@ -87,7 +87,7 @@ void Axis::init(Orientation orient, Graph_lib::Point origin,
 
           // также добавляем текст к этим насечкам
 
-          // MEANS: надпись к насечке
+          /// @brief Надпись к насечке
           Text* mark = new Text(
               Point(origin.x + i - notch_side / 2, origin.y + margin),
               // (конвертируем, так как надписи к насечками в веществ.)
@@ -134,7 +134,7 @@ void Axis::init(Orientation orient, Graph_lib::Point origin,
 
           // также добавляем текст к этим насечкам
 
-          // MEANS: надпись к насечке
+          /// @brief Надпись к насечке
           Text* mark = new Text(
               Point(origin.x + margin, origin.y + i + notch_side / 2),
               // (конвертируем, так как надписи к насечками в веществ.)

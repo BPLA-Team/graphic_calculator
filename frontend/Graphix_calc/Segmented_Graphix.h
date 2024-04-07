@@ -15,22 +15,26 @@
 
 namespace Graphix_calc {
 
-// MEANS: фигура, представляющая собой график мат. функции, поделенный на
+/// @brief Фигура, представляющая собой график мат. функции, поделенный на
 // сегменты, связанные с ОДЗ
 class Segmented_graphix : public Graph_lib::Shape {
  public:
   Segmented_graphix() = default;
 
-  // ARGS: лямбда-выражение от мат. функции, длина ед. отрезка, начало координат
-  // ARGS: левая нижняя точка - начало области деления на сегменты,
-  // ARGS: правая верхняя точка - конец области деления на сегменты
-  // (деление на сегменты происходит на прямоугольной области)
-  // (краями которой и являются точки)
+  /**
+   * @brief Инициализирует новый экземпляр Segmented_graphix
+   * @details Деление на сегменты происходит на прямоугольной области краями
+   * которой и являются точки
+   * @param _calc: лямбда-выражение от мат. функции
+   * @param unit_intr: длина ед. отрезка
+   * @param origin: начало координат
+   * @param left_bottom: левая нижняя точка - начало области деления на сегменты
+   * @param right_top: правая верхняя точка - конец области деления на сегменты
+   */
   Segmented_graphix(std::function<double(double)> _calc, double unit_intr,
                     Graph_lib::Point origin, Graph_lib::Point left_bottom,
                     Graph_lib::Point right_top);
 
-  // ARGS: указатель на график простой мат. функции
   Segmented_graphix(Graphix_calc::Graphix* graphix);
 
   ~Segmented_graphix();
@@ -49,13 +53,13 @@ class Segmented_graphix : public Graph_lib::Shape {
  private:
   // vars
 
-  // MEANS: лямбда-выражение от мат. функции
+  /// @brief Лямбда-выражение от мат. функции
   std::function<double(double)> calc;
 
-  // MEANS: вещественные отрезки, где мат. функция определена
+  /// @brief Вещественные отрезки, где мат. функция определена
   std::vector<Math_calc::Segment> segs;
 
-  // MEANS: график мат. функции, поделенный на сегменты, связанные с ОДЗ
+  /// @brief График мат. функции, поделенный на сегменты, связанные с ОДЗ
   std::vector<Graphix_calc::Graphix*> seged_graphix;
 
   // ~vars
@@ -64,20 +68,27 @@ class Segmented_graphix : public Graph_lib::Shape {
 
   void draw_lines() const override;
 
-  // RETURNS: вещественные отрезки, где мат. функция определена
-  // ARGS: длина ед. отрезка, начало координат
-  // ARGS: левая нижняя точка - начало области деления на сегменты,
-  // ARGS: правая верхняя точка - конец области деления на сегменты
-  // (именно здесь вызывается бэкендовская domain_segments)
+  /**
+   * @param unit_intr: длина ед. отрезка,
+   * @param origin: начало координат
+   * @param left_bottom: левая нижняя точка - начало области деления на сегменты
+   * @param right_top: правая верхняя точка - конец области деления на сегменты
+   * @return std::vector<Math_calc::Segment>: вещественные отрезки, где мат.
+   * функция определена
+   */
   std::vector<Math_calc::Segment> segments(double unit_intr,
                                            Graph_lib::Point origin,
                                            Graph_lib::Point left_bottom,
                                            Graph_lib::Point right_top) const;
 
-  // RETURNS: график мат. функции, поделенный на сегменты, связанные с ОДЗ
-  // ARGS: длина ед. отрезка, начало координат
-  // ARGS: левая нижняя точка - начало области деления на сегменты,
-  // ARGS: правая верхняя точка - конец области деления на сегменты
+  /**
+   * @return std::vector<Graphix_calc::Graphix*>: график мат. функции,
+   * поделенный на сегменты, связанные с ОДЗ
+   * @param unit_intr: длина ед. отрезка
+   * @param origin: начало координат
+   * @param left_bottom: левая нижняя точка - начало области деления на сегменты
+   * @param right_top: правая верхняя точка - конец области деления на сегменты
+   */
   std::vector<Graphix_calc::Graphix*> segmented_graphix(
       double unit_intr, Graph_lib::Point origin, Graph_lib::Point left_bottom,
       Graph_lib::Point right_top) const;

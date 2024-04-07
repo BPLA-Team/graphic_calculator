@@ -25,7 +25,7 @@ expose_func_str::expose_func_str(const vector<string>& _all_funcs_str,
 void expose_func_str::expose_dep_func() {
   func_str = spaces_deleted(func_str);
 
-  // MEANS: вектор для записи зависимости, еще не дошедшей до выражения без y_n
+  /// @brief Вектор для записи зависимости, еще не дошедшей до выражения без y_n
   vector<size_t> unexposed_dependencies;
 
   // если 'y' нету, то и делать ничего не надо
@@ -42,11 +42,11 @@ void expose_func_str::expose_dep_func() {
   // иначе проходимся по строке до тех пор, пока в ней не будут раскрыты все y_n
   // (мы проходимся не рекурсией, а динамически: подтаскиваем все раскрытия y_n)
   for (size_t i = 0; i < func_str.size(); i++) {
-    // MEANS: текущий символ
+    /// @brief Текущий символ
     char ch = func_str[i];
 
     if (ch == 'y') {
-      // MEANS: считываемый предполагаемый номер мат. функции
+      /// @brief Считываемый предполагаемый номер мат. функции
       // (на данном моменте может оказаться не валидным)
       string read_est_number = "";
 
@@ -61,10 +61,10 @@ void expose_func_str::expose_dep_func() {
       if (read_est_number.empty())
         throw invalid_argument("invalid function number");
 
-      // MEANS: номер предполагаемой мат. функции в общем векторе
+      /// @brief Номер предполагаемой мат. функции в общем векторе
       size_t est_number = stoull(read_est_number);
 
-      // MEANS: индекс предполагаемой мат. функции в общем векторе
+      /// @brief Индекс предполагаемой мат. функции в общем векторе
       size_t est_index = est_number - 1;
 
       // номер больше количества возможных к вводу мат. функций
