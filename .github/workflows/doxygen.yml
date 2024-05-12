@@ -1,0 +1,49 @@
+name: Doxygen
+
+on:
+  push:
+    branches: ["main", "documenting"]
+
+permissions:
+  pages: write
+  deployments: write
+  id-token: write
+  actions: read
+  
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with: 
+          submodules: 'recursive'
+
+      - name: Install Doxygen
+        run: |
+          chmod +x .extra/doxygen/install_doxygen.sh
+          ./.extra/doxygen/install_doxygen.sh
+      
+      - name: Install Graphviz
+        run: sudo apt install graphviz
+
+      - name: Run Doxygen
+        run: doxygen .extra/doxygen/doxyfile
+
+      - name: Upload Docs
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # Upload entire repository with index.html created by doxygen 
+          path: './doxygen/html/'
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Deploy To GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
