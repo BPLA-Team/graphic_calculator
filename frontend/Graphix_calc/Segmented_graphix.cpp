@@ -67,7 +67,8 @@ vector<Segment> Segmented_graphix::segments(double unit_intr,
 }
 
 vector<Graphix*> Segmented_graphix::segmented_graphix(
-    double unit_intr, Graph_lib::Point origin, Graph_lib::Point left_bottom,
+    double unit_intr, Graph_lib::Point origin,
+    [[maybe_unused]] Graph_lib::Point left_bottom,
     Graph_lib::Point right_top) const {
   vector<Graphix*> res;
   // это количество точек идеально подходит под наши задачи
