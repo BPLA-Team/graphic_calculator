@@ -26,7 +26,7 @@ find_package(OpenGL REQUIRED)
 include_directories(SYSTEM ${FLTK_INCLUDE_DIR})
 link_directories(${FLTK_INCLUDE_DIR}/../lib)
 
-add_executable(${PROJECT_NAME} ${HEADERS} ${SOURCES})
+add_executable(${PROJECT_NAME} WIN32 ${HEADERS} ${SOURCES})
 
 target_link_libraries(${PROJECT_NAME} ${FLTK_LIBRARIES} ${OPENGL_LIBRARIES})
 
