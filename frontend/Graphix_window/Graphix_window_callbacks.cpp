@@ -31,13 +31,13 @@ void Graphix_window::wait_for_button() {
 
   // TEMP: временные выводы в консоль
 
-  cout << "some button pushed" << endl;
-  cout << "unit_intr: " << unit_intr << endl;
-  cout << "inputed_strings: ";
-  print(inputed_strings);
-  cout << "inputed_func_strs: ";
-  print(inputed_funcs);
-  cout << endl << endl;
+  // cout << "some button pushed" << endl;
+  // cout << "unit_intr: " << unit_intr << endl;
+  // cout << "inputed_strings: ";
+  // print(inputed_strings);
+  // cout << "inputed_func_strs: ";
+  // print(inputed_funcs);
+  // cout << endl << endl;
 
   some_button_pushed = false;
   Fl::redraw();
